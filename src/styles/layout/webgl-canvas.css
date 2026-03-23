@@ -1,0 +1,30 @@
+#webgl-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Fallback изображение для слабых устройств или при отсутствии WebGL */
+.fallback-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Контейнер для fallback (если нужно переопределить стили родителя canvas) */
+body.fallback-mode #webgl-canvas {
+  display: none;
+}
+
+body.fallback-mode {
+  background: linear-gradient(135deg, #0a192f 0%, #1a2642 100%);
+}

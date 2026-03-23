@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a192f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a2642;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9d4edd;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#64ffda;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  
+  <!-- Decorative circles -->
+  <circle cx="200" cy="200" r="150" fill="url(#accentGrad)" opacity="0.1"/>
+  <circle cx="1700" cy="900" r="200" fill="url(#accentGrad)" opacity="0.1"/>
+  <circle cx="960" cy="540" r="300" fill="url(#accentGrad)" opacity="0.05"/>
+  
+  <!-- Grid pattern -->
+  <g stroke="#9d4edd" stroke-width="1" opacity="0.1">
+    <line x1="0" y1="200" x2="1920" y2="200"/>
+    <line x1="0" y1="400" x2="1920" y2="400"/>
+    <line x1="0" y1="600" x2="1920" y2="600"/>
+    <line x1="0" y1="800" x2="1920" y2="800"/>
+    <line x1="300" y1="0" x2="300" y2="1080"/>
+    <line x1="600" y1="0" x2="600" y2="1080"/>
+    <line x1="900" y1="0" x2="900" y2="1080"/>
+    <line x1="1200" y1="0" x2="1200" y2="1080"/>
+    <line x1="1500" y1="0" x2="1500" y2="1080"/>
+  </g>
+  
+  <!-- Center text -->
+  <text x="50%" y="50%" text-anchor="middle" fill="#64ffda" font-family="Arial, sans-serif" font-size="48" font-weight="300" letter-spacing="4">
+    Portfolio
+  </text>
+  <text x="50%" y="58%" text-anchor="middle" fill="#9d4edd" font-family="Arial, sans-serif" font-size="24" letter-spacing="2">
+    Full-Stack Developer
+  </text>
+</svg>

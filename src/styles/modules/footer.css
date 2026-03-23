@@ -1,0 +1,15 @@
+/* ===================================
+   Footer
+   =================================== */
+.footer {
+  padding: 30px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+}
+
+.footer-note {
+  margin-top: 10px;
+  color: var(--text-secondary);
+}

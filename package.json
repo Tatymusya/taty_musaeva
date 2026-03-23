@@ -1,0 +1,40 @@
+{
+  "name": "taty_musaeva",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && npx gh-pages -d dist",
+    "lint": "eslint . --ext .ts,.tsx --fix",
+    "lint:check": "eslint . --ext .ts,.tsx",
+    "format": "prettier --write \"**/*.{ts,tsx,css,md,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,css,md,json}\""
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@types/three": "^0.183.1",
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
+    "@typescript-eslint/parser": "^8.57.1",
+    "blurhash": "^2.0.5",
+    "canvas": "^3.2.1",
+    "eslint": "^10.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "gh-pages": "^6.3.0",
+    "jiti": "^2.6.1",
+    "prettier": "^3.8.1",
+    "sharp": "^0.34.5",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.1",
+    "vite": "^8.0.0",
+    "vite-imagetools": "^10.0.0",
+    "vite-plugin-beasties": "^0.4.1"
+  },
+  "dependencies": {
+    "postprocessing": "^6.38.3",
+    "three": "^0.183.2"
+  }
+}

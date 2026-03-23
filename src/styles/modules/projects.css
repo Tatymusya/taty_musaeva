@@ -1,0 +1,135 @@
+/* ===================================
+   Projects Section
+   =================================== */
+.projects-section {
+  padding: var(--section-padding) 0;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.project-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.5);
+}
+
+.project-card.featured {
+  grid-column: span 2;
+  grid-template-columns: 1fr 1.5fr;
+}
+
+.project-image {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-tertiary);
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-slow);
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.1);
+}
+
+.project-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(100, 255, 218, 0.3);
+  opacity: 0;
+  transition: var(--transition-fast);
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+.project-content {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-category {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+}
+
+.project-title {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: var(--text-primary);
+}
+
+.project-description {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.project-tech li {
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.project-links {
+  display: flex;
+  gap: 15px;
+}
+
+.project-link .icon {
+  width: 20px;
+  height: 20px;
+  fill: var(--text-secondary);
+  transition: var(--transition-fast);
+}
+
+.project-link:hover .icon {
+  fill: var(--accent);
+  transform: translateY(-3px);
+}
+
+.projects-cta {
+  text-align: center;
+  margin-top: 50px;
+}
+
+@media (max-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card.featured {
+    grid-column: span 1;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+}
