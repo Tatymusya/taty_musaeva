@@ -78,12 +78,14 @@ export function distance(x1: number, y1: number, x2: number, y2: number): number
  * Вычислить 3D расстояние
  */
 export function distance3D(
-  x1: number, y1: number, z1: number,
-  x2: number, y2: number, z2: number
+  x1: number,
+  y1: number,
+  z1: number,
+  x2: number,
+  y2: number,
+  z2: number
 ): number {
-  return Math.sqrt(
-    (x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2
-  );
+  return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2);
 }
 
 /**
@@ -114,47 +116,49 @@ export const easing = {
   // Quadratic
   easeInQuad: (t: number): number => t * t,
   easeOutQuad: (t: number): number => t * (2 - t),
-  easeInOutQuad: (t: number): number => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
-  
+  easeInOutQuad: (t: number): number => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t),
+
   // Cubic
   easeInCubic: (t: number): number => t * t * t,
-  easeOutCubic: (t: number): number => (--t) * t * t + 1,
-  easeInOutCubic: (t: number): number => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1,
-  
+  easeOutCubic: (t: number): number => --t * t * t + 1,
+  easeInOutCubic: (t: number): number =>
+    t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1,
+
   // Quartic
   easeInQuart: (t: number): number => t * t * t * t,
-  easeOutQuart: (t: number): number => 1 - (--t) * t * t * t,
-  easeInOutQuart: (t: number): number => t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t,
-  
+  easeOutQuart: (t: number): number => 1 - --t * t * t * t,
+  easeInOutQuart: (t: number): number => (t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t),
+
   // Quintic
   easeInQuint: (t: number): number => t * t * t * t * t,
-  easeOutQuint: (t: number): number => 1 + (--t) * t * t * t * t,
-  easeInOutQuint: (t: number): number => t < 0.5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t,
-  
+  easeOutQuint: (t: number): number => 1 + --t * t * t * t * t,
+  easeInOutQuint: (t: number): number =>
+    t < 0.5 ? 16 * t * t * t * t * t : 1 + 16 * --t * t * t * t * t,
+
   // Sinusoidal
   easeInSine: (t: number): number => 1 - Math.cos((t * Math.PI) / 2),
   easeOutSine: (t: number): number => Math.sin((t * Math.PI) / 2),
   easeInOutSine: (t: number): number => -(Math.cos(Math.PI * t) - 1) / 2,
-  
+
   // Exponential
-  easeInExpo: (t: number): number => t === 0 ? 0 : Math.pow(2, 10 * (t - 1)),
-  easeOutExpo: (t: number): number => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
+  easeInExpo: (t: number): number => (t === 0 ? 0 : Math.pow(2, 10 * (t - 1))),
+  easeOutExpo: (t: number): number => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
   easeInOutExpo: (t: number): number => {
     if (t === 0) return 0;
     if (t === 1) return 1;
     if (t < 0.5) return Math.pow(2, 20 * t - 10) / 2;
     return (2 - Math.pow(2, -20 * t + 10)) / 2;
   },
-  
+
   // Circular
   easeInCirc: (t: number): number => 1 - Math.sqrt(1 - t * t),
-  easeOutCirc: (t: number): number => Math.sqrt(1 - (--t) * t),
+  easeOutCirc: (t: number): number => Math.sqrt(1 - --t * t),
   easeInOutCirc: (t: number): number => {
     return t < 0.5
       ? (1 - Math.sqrt(1 - Math.pow(2 * t, 2))) / 2
       : (Math.sqrt(1 - Math.pow(-2 * t + 2, 2)) + 1) / 2;
   },
-  
+
   // Back
   easeInBack: (t: number): number => {
     const c1 = 1.70158;
@@ -166,18 +170,18 @@ export const easing = {
     const c3 = c1 + 1;
     return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
   },
-  
+
   // Elastic
   easeOutElastic: (t: number): number => {
     const c4 = (2 * Math.PI) / 3;
     return t === 0 ? 0 : t === 1 ? 1 : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
   },
-  
+
   // Bounce
   easeOutBounce: (t: number): number => {
     const n1 = 7.5625;
     const d1 = 2.75;
-    
+
     if (t < 1 / d1) {
       return n1 * t * t;
     } else if (t < 2 / d1) {

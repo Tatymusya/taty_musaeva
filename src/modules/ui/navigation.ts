@@ -9,7 +9,7 @@ export class NavigationModule extends BaseModule {
   private navLinks: NodeListOf<HTMLAnchorElement> | null = null;
   private navToggle: HTMLElement | null = null;
   private navLinksContainer: HTMLElement | null = null;
-  
+
   // Обработчики событий
   private _onScroll: (() => void) | null = null;
   private _updateActiveNavLink: (() => void) | null = null;
@@ -27,7 +27,7 @@ export class NavigationModule extends BaseModule {
     this.setupNavLinks();
     this.setupMobileMenu();
     this.setupSmoothScroll();
-    
+
     this.initialized = true;
     this.debug('Initialized');
   }

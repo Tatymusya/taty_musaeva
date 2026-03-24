@@ -25,7 +25,7 @@ export class InteractionModule extends BaseModule {
     this.setupMouseMove();
     this.setupScroll();
     this.setupKeyboard();
-    
+
     this.initialized = true;
     this.debug('Initialized');
   }

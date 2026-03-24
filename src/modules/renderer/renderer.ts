@@ -22,7 +22,7 @@ export class RendererModule extends BaseModule {
   private readonly targetFps = 30; // Можно вынести в config
   private readonly frameTime = 1000 / this.targetFps;
   private ticking = false;
-  
+
   // Флаги состояния
   private isFallbackMode = false;
   private webglSupported = true;
@@ -41,7 +41,7 @@ export class RendererModule extends BaseModule {
 
     const capabilities = await DeviceCheck.getCapabilities();
     console.log('Device capabilities:', capabilities);
-    
+
     // Публикуем событие с возможностями устройства
     EventManager.emit('device:capabilities', capabilities);
 
@@ -89,8 +89,8 @@ export class RendererModule extends BaseModule {
   }
 
   /**
-  * Обработка ошибки WebGL
-  */
+   * Обработка ошибки WebGL
+   */
   private handleWebGLError(reason: string): void {
     this.isFallbackMode = true;
     this.debug(`WebGL fallback mode: ${reason}`);
@@ -103,13 +103,13 @@ export class RendererModule extends BaseModule {
 
     // Показываем fallback-изображение
     this.showFallbackImage();
-    
+
     console.warn(`⚠️ 3D rendering disabled: ${reason}. Using fallback image.`);
   }
 
   /**
- * Показать fallback-изображение
- */
+   * Показать fallback-изображение
+   */
   private showFallbackImage(): void {
     // Проверяем, не добавлено ли уже fallback-изображение
     if (document.querySelector('.fallback-image')) return;
@@ -118,7 +118,7 @@ export class RendererModule extends BaseModule {
     img.src = '/images/fallback.svg'; // путь к SVG изображению
     img.alt = '3D background not available';
     img.className = 'fallback-image';
-    
+
     // Добавляем стили явно через JS для надёжности
     img.style.cssText = `
       position: fixed;
@@ -133,7 +133,7 @@ export class RendererModule extends BaseModule {
 
     // Добавляем в body, а не в родителя canvas
     document.body.appendChild(img);
-    
+
     // Добавляем класс на body для дополнительных стилей
     document.body.classList.add('fallback-mode');
   }
@@ -154,13 +154,8 @@ export class RendererModule extends BaseModule {
 
   private setupCamera(): void {
     const aspect = this.width / this.height;
-    
-    this.camera = new THREE.PerspectiveCamera(
-      75,
-      aspect,
-      0.1,
-      1000
-    );
+
+    this.camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000);
     this.camera.position.z = 50;
   }
 
@@ -228,10 +223,10 @@ export class RendererModule extends BaseModule {
       }
     };
 
-  this.animationFrameId = requestAnimationFrame(animate);
-  this.debug('Controlled animation loop started (FPS: %d)', this.targetFps);
+    this.animationFrameId = requestAnimationFrame(animate);
+    this.debug('Controlled animation loop started (FPS: %d)', this.targetFps);
 
-      /*this.animationFrameId = requestAnimationFrame(animate);
+    /*this.animationFrameId = requestAnimationFrame(animate);
 
       this.callbacks.forEach((callback) => callback());
 
@@ -282,11 +277,11 @@ export class RendererModule extends BaseModule {
   destroy(): void {
     this.stopAnimationLoop();
     this.callbacks.clear();
-    
+
     if (this._onResize) {
       window.removeEventListener('resize', this._onResize);
     }
-    
+
     this.renderer.dispose();
     super.destroy();
   }

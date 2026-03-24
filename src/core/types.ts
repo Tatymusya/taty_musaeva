@@ -58,14 +58,22 @@ export interface ScrollState {
 // ==========================================
 // Типы событий
 // ==========================================
-export type EventType = 'mouse:move' | 'scroll' | 'resize' | 'tick' | 'keydown' | 'device:capabilities' | 'webgl:not-supported' | 'webgl:initialized';
+export type EventType =
+  | 'mouse:move'
+  | 'scroll'
+  | 'resize'
+  | 'tick'
+  | 'keydown'
+  | 'device:capabilities'
+  | 'webgl:not-supported'
+  | 'webgl:initialized';
 
 export interface CustomEventMap {
   'mouse:move': MousePosition;
-  'scroll': ScrollState;
-  'resize': { width: number; height: number };
-  'tick': { delta: number; time: number };
-  'keydown': { key: string; code: string };
+  scroll: ScrollState;
+  resize: { width: number; height: number };
+  tick: { delta: number; time: number };
+  keydown: { key: string; code: string };
   'device:capabilities': {
     webgl: boolean;
     webgl2?: boolean;

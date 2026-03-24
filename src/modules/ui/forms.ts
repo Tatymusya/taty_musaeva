@@ -1,5 +1,6 @@
 import { BaseModule } from '../base-module';
 import { FormSubmitChecker } from '@core/utils/formsubmit-checker';
+import { I18n } from '@core/i18n';
 
 /**
  * Модуль форм
@@ -22,8 +23,45 @@ export class FormModule extends BaseModule {
 
     this.setupForms();
 
+    // Подписка на изменение языка для обновления текстов
+    I18n.subscribe(() => this.updateMessagesTranslations());
+
     this.initialized = true;
     this.debug('Initialized');
+  }
+
+  /**
+   * Обновить переводы в сообщениях формы
+   */
+  private updateMessagesTranslations(): void {
+    // Обновляем сообщение о недоступности сервиса
+    const unavailableMessage = document.querySelector('.service-unavailable-message');
+    if (unavailableMessage) {
+      unavailableMessage.innerHTML = `
+        <p>⚠️ ${I18n.t('contact.unavailableTitle')}</p>
+        <p>${I18n.t('contact.unavailableText')} <a href="mailto:${this.RECIPIENT_EMAIL}">${this.RECIPIENT_EMAIL}</a></p>
+        <p class="unavailable-reason">${I18n.t('contact.unavailableReason')}</p>
+      `;
+    }
+
+    // Обновляем ошибки валидации
+    document.querySelectorAll('.field-error').forEach((el) => {
+      const input = el.previousElementSibling as HTMLInputElement | HTMLTextAreaElement;
+      if (input?.required && !input.value.trim()) {
+        el.textContent = I18n.t('contact.fieldRequired');
+      } else if (input?.type === 'email') {
+        el.textContent = I18n.t('contact.fieldEmailInvalid');
+      }
+    });
+
+    // Обновляем текст кнопки отправки
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+      const submitBtn = contactForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+      if (submitBtn && !submitBtn.disabled && !submitBtn.classList.contains('success')) {
+        submitBtn.textContent = I18n.t('contact.formSubmit');
+      }
+    }
   }
 
   /**
@@ -50,7 +88,7 @@ export class FormModule extends BaseModule {
 
     // Блокируем кнопку отправки
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Сервис недоступен';
+    submitBtn.textContent = I18n.t('contact.serviceUnavailable');
     submitBtn.classList.add('unavailable');
 
     // Добавляем сообщение под формой
@@ -60,9 +98,9 @@ export class FormModule extends BaseModule {
     const messageDiv = document.createElement('div');
     messageDiv.className = 'service-unavailable-message';
     messageDiv.innerHTML = `
-      <p>⚠️ Сервис отправки писем временно недоступен.</p>
-      <p>Вы можете написать мне напрямую: <a href="mailto:${this.RECIPIENT_EMAIL}">${this.RECIPIENT_EMAIL}</a></p>
-      <p class="unavailable-reason">Возможно, сервис заблокирован в вашем регионе или требуется VPN.</p>
+      <p>⚠️ ${I18n.t('contact.unavailableTitle')}</p>
+      <p>${I18n.t('contact.unavailableText')} <a href="mailto:${this.RECIPIENT_EMAIL}">${this.RECIPIENT_EMAIL}</a></p>
+      <p class="unavailable-reason">${I18n.t('contact.unavailableReason')}</p>
     `;
 
     contactForm.appendChild(messageDiv);
@@ -140,7 +178,7 @@ export class FormModule extends BaseModule {
 
     // Required проверка
     if (input.required && !value) {
-      this.showFieldError(input, 'Это поле обязательно для заполнения');
+      this.showFieldError(input, I18n.t('contact.fieldRequired'));
       return false;
     }
 
@@ -148,14 +186,15 @@ export class FormModule extends BaseModule {
     if (type === 'email' && value) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(value)) {
-        this.showFieldError(input, 'Введите корректный email');
+        this.showFieldError(input, I18n.t('contact.fieldEmailInvalid'));
         return false;
       }
     }
 
     // Минимальная длина
     if (input.minLength && value.length < input.minLength) {
-      this.showFieldError(input, `Минимальная длина: ${input.minLength} символов`);
+      const message = I18n.t('contact.fieldMinLength').replace('{min}', String(input.minLength));
+      this.showFieldError(input, message);
       return false;
     }
 
@@ -189,14 +228,14 @@ export class FormModule extends BaseModule {
     if (!this.isFormSubmitAvailable) {
       this.showFieldError(
         form.querySelector('input[type="email"]') as HTMLInputElement,
-        'Сервис отправки временно недоступен. Напишите мне напрямую на почту.'
+        I18n.t('contact.submitUnavailable')
       );
       return;
     }
 
     // Блокируем кнопку
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Отправка...';
+    submitBtn.textContent = I18n.t('contact.sending');
 
     try {
       // Отправка через FormSubmit.co AJAX API
@@ -221,14 +260,14 @@ export class FormModule extends BaseModule {
       }
 
       // Успех
-      submitBtn.textContent = 'Отправлено! ✓';
+      submitBtn.textContent = I18n.t('contact.formSuccess') + ' ✓';
       submitBtn.classList.add('success');
 
       console.log('[FormModule] Form submitted successfully:', data);
 
       // Сброс через 3 секунды
       setTimeout(() => {
-        submitBtn.textContent = originalText;
+        submitBtn.textContent = originalText || I18n.t('contact.formSubmit');
         submitBtn.disabled = false;
         submitBtn.classList.remove('success');
         form.reset();
@@ -236,15 +275,15 @@ export class FormModule extends BaseModule {
     } catch (error) {
       console.error('[FormModule] Submit error:', error);
 
-      submitBtn.textContent = 'Ошибка ✗';
+      submitBtn.textContent = I18n.t('contact.formError');
       submitBtn.classList.add('error');
 
       // Показываем сообщение об ошибке
       const errorDiv = document.createElement('div');
       errorDiv.className = 'form-submit-error';
       errorDiv.innerHTML = `
-        <p>⚠️ Не удалось отправить форму.</p>
-        <p>Вы можете написать мне напрямую: <a href="mailto:${this.RECIPIENT_EMAIL}">${this.RECIPIENT_EMAIL}</a></p>
+        <p>⚠️ ${I18n.t('contact.unavailableTitle')}</p>
+        <p>${I18n.t('contact.unavailableText')} <a href="mailto:${this.RECIPIENT_EMAIL}">${this.RECIPIENT_EMAIL}</a></p>
       `;
 
       // Удаляем предыдущие ошибки

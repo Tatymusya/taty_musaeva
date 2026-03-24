@@ -17,14 +17,19 @@ export interface LoadProgress {
   completedModules: string[];
 }
 
-export type ModuleLoaderEvent = 'module:start' | 'module:complete' | 'module:error' | 'progress' | 'complete';
+export type ModuleLoaderEvent =
+  | 'module:start'
+  | 'module:complete'
+  | 'module:error'
+  | 'progress'
+  | 'complete';
 
 export interface ModuleLoaderEvents {
   'module:start': { name: string };
   'module:complete': { name: string };
   'module:error': { name: string; error: unknown };
-  'progress': LoadProgress;
-  'complete': { modules: string[] };
+  progress: LoadProgress;
+  complete: { modules: string[] };
 }
 
 class ModuleLoaderClass {
@@ -65,7 +70,10 @@ class ModuleLoaderClass {
   /**
    * Подписаться один раз
    */
-  once<T extends ModuleLoaderEvent>(event: T, callback: (data: ModuleLoaderEvents[T]) => void): void {
+  once<T extends ModuleLoaderEvent>(
+    event: T,
+    callback: (data: ModuleLoaderEvents[T]) => void
+  ): void {
     const onceWrapper = (data: ModuleLoaderEvents[T]): void => {
       callback(data);
       this.off(event, onceWrapper as (...args: unknown[]) => void);
@@ -82,7 +90,7 @@ class ModuleLoaderClass {
 
     for (let i = 0; i < modules.length; i++) {
       const module = modules[i];
-      
+
       // Отправляем событие начала модуля с прогрессом
       this.emit('module:start', { name: module.name });
       this.emit('progress', this.getProgress(module.name));
@@ -92,10 +100,10 @@ class ModuleLoaderClass {
         this.completedModules.push(module.name);
         this.emit('module:complete', { name: module.name });
         this.emit('progress', this.getProgress());
-        
+
         // Минимальная задержка между модулями для обновления UI
         if (i < modules.length - 1) {
-          await new Promise(resolve => setTimeout(resolve, 150));
+          await new Promise((resolve) => setTimeout(resolve, 150));
         }
       } catch (error) {
         this.emit('module:error', { name: module.name, error });

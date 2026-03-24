@@ -16,32 +16,29 @@ export class SceneModule extends BaseModule {
 
   // Постобработка
   private postProcessor!: PostProcessor;
-  
+
   // Объекты сцены
   private particleSystem!: THREE.Points;
   private linesGeometry!: THREE.BufferGeometry;
   private linesMesh!: THREE.LineSegments;
   private centralObject!: THREE.Mesh;
-  
+
   // Данные частиц
   private positions!: Float32Array;
   private originalPositions!: Float32Array;
   private velocities!: Float32Array;
   private particleCount: number = 0;
-  
+
   // Состояние
   private mouse: THREE.Vector2 = new THREE.Vector2();
   private currentRotation: THREE.Vector2 = new THREE.Vector2();
   private targetRotation: THREE.Vector2 = new THREE.Vector2();
-  
+
   // Обработчики событий
   private _onMouseMove: ((data: MousePosition) => void) | null = null;
   private _onScroll: ((data: { progress: number }) => void) | null = null;
 
-  constructor(
-    camera: THREE.PerspectiveCamera,
-    renderer: THREE.WebGLRenderer
-  ) {
+  constructor(camera: THREE.PerspectiveCamera, renderer: THREE.WebGLRenderer) {
     super('Scene');
     this.camera = camera;
     this.renderer = renderer;
@@ -73,7 +70,7 @@ export class SceneModule extends BaseModule {
 
   private setupScene(): void {
     const config = getConfig('three');
-    
+
     this.scene = new THREE.Scene();
     this.scene.fog = new THREE.FogExp2(config.bgColor, config.fogDensity);
   }
@@ -81,7 +78,7 @@ export class SceneModule extends BaseModule {
   private setupParticles(): void {
     const config = getConfig('three');
     this.particleCount = config.particleCount;
-    
+
     const geometry = new THREE.BufferGeometry();
     this.positions = new Float32Array(this.particleCount * 3);
     this.originalPositions = new Float32Array(this.particleCount * 3);
@@ -146,7 +143,7 @@ export class SceneModule extends BaseModule {
 
   private setupCentralObject(): void {
     //const config = getConfig('three');
-    
+
     const geometry = new THREE.IcosahedronGeometry(8, 1);
     const material = new THREE.MeshPhongMaterial({
       //color: config.particleColor,
@@ -166,7 +163,7 @@ export class SceneModule extends BaseModule {
 
   private setupLights(): void {
     const config = getConfig('three');
-    
+
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     this.scene.add(ambientLight);
 
@@ -186,13 +183,7 @@ export class SceneModule extends BaseModule {
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    this.postProcessor = new PostProcessor(
-      this.renderer,
-      this.scene,
-      this.camera,
-      width,
-      height
-    );
+    this.postProcessor = new PostProcessor(this.renderer, this.scene, this.camera, width, height);
   }
 
   private setupEventListeners(): void {
@@ -218,7 +209,7 @@ export class SceneModule extends BaseModule {
     const config = getConfig('three');
     const linePositions = this.linesGeometry.attributes.position.array as Float32Array;
     const lineColors = this.linesGeometry.attributes.color.array as Float32Array;
-    
+
     let lineIndex = 0;
     const color = new THREE.Color(config.particleColor);
 
@@ -235,7 +226,7 @@ export class SceneModule extends BaseModule {
 
         if (distance < config.connectionDistance) {
           const lineIndex6 = lineIndex * 6;
-          
+
           linePositions[lineIndex6] = this.positions[i3];
           linePositions[lineIndex6 + 1] = this.positions[i3 + 1];
           linePositions[lineIndex6 + 2] = this.positions[i3 + 2];
@@ -272,7 +263,7 @@ export class SceneModule extends BaseModule {
 
     for (let i = 0; i < this.particleCount; i++) {
       const i3 = i * 3;
-      
+
       const dx = this.positions[i3] - this.mouse.x * 50;
       const dy = this.positions[i3 + 1] - this.mouse.y * 50;
       const distance = Math.sqrt(dx * dx + dy * dy);
@@ -377,7 +368,7 @@ export class SceneModule extends BaseModule {
 
     // Очистка сцены
     this.scene.clear();
-    
+
     // Освобождение ресурсов
     this.particleSystem.geometry.dispose();
     (this.particleSystem.material as THREE.Material).dispose();
@@ -385,7 +376,7 @@ export class SceneModule extends BaseModule {
     (this.linesMesh.material as THREE.Material).dispose();
     this.centralObject.geometry.dispose();
     (this.centralObject.material as THREE.Material).dispose();
-    
+
     super.destroy();
   }
 }

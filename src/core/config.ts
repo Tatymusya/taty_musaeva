@@ -37,7 +37,7 @@ export function getConfig<T extends keyof AppConfig | string>(
   const keys = path.split('.');
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let result: any = config;
-  
+
   for (const key of keys) {
     if (result && typeof result === 'object' && key in result) {
       result = result[key];
@@ -45,27 +45,24 @@ export function getConfig<T extends keyof AppConfig | string>(
       throw new Error(`Config path "${path}" not found`);
     }
   }
-  
+
   return result;
 }
 
 /**
  * Обновить конфигурацию
  */
-export function setConfig<T extends keyof AppConfig>(
-  path: T,
-  value: AppConfig[T]
-): void {
+export function setConfig<T extends keyof AppConfig>(path: T, value: AppConfig[T]): void {
   const keys = path.split('.');
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let target: any = config;
-  
+
   for (let i = 0; i < keys.length - 1; i++) {
     target = target[keys[i]];
   }
-  
+
   target[keys[keys.length - 1]] = value;
-  
+
   if (config.app.debug) {
     console.log(`[Config] ${path} updated:`, value);
   }

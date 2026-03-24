@@ -39,7 +39,9 @@ export function createResponsiveImage(images: ImageSet): HTMLElement {
   if (images.lqip) {
     img.style.background = `url(${images.lqip}) center/cover`;
     img.style.filter = 'blur(8px)';
-    img.onload = () => { img.style.filter = 'blur(0)'; };
+    img.onload = () => {
+      img.style.filter = 'blur(0)';
+    };
   }
 
   picture.appendChild(img);

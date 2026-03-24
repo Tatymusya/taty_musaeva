@@ -7,11 +7,7 @@ function getValueByPath<T>(obj: T, path: string): unknown {
   let result: unknown = obj;
 
   for (const key of keys) {
-    if (
-      result !== null &&
-      typeof result === 'object' &&
-      key in result
-    ) {
+    if (result !== null && typeof result === 'object' && key in result) {
       result = (result as Record<string, unknown>)[key];
     } else {
       return undefined;
@@ -27,7 +23,7 @@ function getValueByPath<T>(obj: T, path: string): unknown {
  */
 class I18nClass {
   private translations: Record<Locale, ITranslation> = { ru, en };
-  
+
   private config: ILocaleConfig = {
     locale: 'ru',
     fallbackLocale: 'en',
@@ -74,8 +70,8 @@ class I18nClass {
    * Переключить язык на противоположный
    */
   toggleLocale(): void {
-    const newLocale: Locale = this.config.locale === 'ru' ? 'en' : 'ru'
-    this.setLocale(newLocale)
+    const newLocale: Locale = this.config.locale === 'ru' ? 'en' : 'ru';
+    this.setLocale(newLocale);
   }
 
   /**
@@ -89,13 +85,13 @@ class I18nClass {
       return this.cache.get(cacheKey)!;
     }
 
-    let value = getValueByPath(this.translations[this.config.locale], key)
+    let value = getValueByPath(this.translations[this.config.locale], key);
 
     if (!value) {
-      value = getValueByPath(this.translations[this.config.fallbackLocale], key)
+      value = getValueByPath(this.translations[this.config.fallbackLocale], key);
     }
 
-    const result = typeof value === 'string' ? value : key
+    const result = typeof value === 'string' ? value : key;
 
     // Сохраняем в кэш
     this.cache.set(cacheKey, result);
@@ -114,15 +110,15 @@ class I18nClass {
    * Получить все переводы текущего языка
    */
   getTranslations(): ITranslation {
-    return this.translations[this.config.locale]
+    return this.translations[this.config.locale];
   }
 
   /**
    * Подписаться на изменение языка
    */
   subscribe(callback: (locale: Locale) => void): () => void {
-    this.listeners.add(callback)
-    return () => this.listeners.delete(callback)
+    this.listeners.add(callback);
+    return () => this.listeners.delete(callback);
   }
 
   /**
@@ -157,7 +153,7 @@ class I18nClass {
         }
       }
     } catch {
-      console.warn('localStorage is unavailable')
+      console.warn('localStorage is unavailable');
     }
   }
 
@@ -168,7 +164,7 @@ class I18nClass {
     try {
       localStorage.setItem(this.storageKey, this.config.locale);
     } catch {
-      console.warn('localStorage is unavailable')
+      console.warn('localStorage is unavailable');
     }
   }
 
@@ -211,7 +207,9 @@ class I18nClass {
     });
 
     // Обновляем элементы только с data-i18n-placeholder (без data-i18n)
-    const placeholderElements = document.querySelectorAll('[data-i18n-placeholder]:not([data-i18n])');
+    const placeholderElements = document.querySelectorAll(
+      '[data-i18n-placeholder]:not([data-i18n])'
+    );
 
     placeholderElements.forEach((element) => {
       const key = element.getAttribute('data-i18n-placeholder');

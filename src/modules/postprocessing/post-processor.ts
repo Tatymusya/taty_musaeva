@@ -68,8 +68,8 @@ export class PostProcessor {
    */
   setSize(width: number, height: number): void {
     //const pixelRatio = Math.min(window.devicePixelRatio, 2);
-    this.composer.setSize(width, height);        // ← без третьего аргумента
-    //this.composer.setPixelRatio(pixelRatio); 
+    this.composer.setSize(width, height); // ← без третьего аргумента
+    //this.composer.setPixelRatio(pixelRatio);
   }
 
   /**

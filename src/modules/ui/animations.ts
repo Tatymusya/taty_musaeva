@@ -21,7 +21,7 @@ export class AnimationModule extends BaseModule {
     this.setupScrollAnimations();
     this.setupParallax();
     this.setupCounterAnimation();
-    
+
     this.initialized = true;
     this.debug('Initialized');
   }
@@ -38,7 +38,7 @@ export class AnimationModule extends BaseModule {
         if (entry.isIntersecting) {
           const element = entry.target as HTMLElement;
           element.classList.add('visible');
-          
+
           // Если это секция, добавляем класс для анимации children
           if (element.classList.contains('section')) {
             this.animateChildren(element);
@@ -70,7 +70,7 @@ export class AnimationModule extends BaseModule {
     children.forEach((child, index) => {
       child.style.opacity = '0';
       child.style.transform = 'translateY(20px)';
-      
+
       setTimeout(() => {
         child.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
         child.style.opacity = '1';
@@ -86,11 +86,11 @@ export class AnimationModule extends BaseModule {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const parallaxElements = document.querySelectorAll<HTMLElement>('[data-parallax]');
-          
+
           parallaxElements.forEach((element) => {
             const speed = parseFloat(element.dataset.parallaxSpeed || '0.1');
             const rect = element.getBoundingClientRect();
-            
+
             if (rect.top < window.innerHeight && rect.bottom > 0) {
               const yPos = (window.innerHeight - rect.top) * speed;
               element.style.transform = `translateY(${yPos}px)`;
@@ -109,7 +109,7 @@ export class AnimationModule extends BaseModule {
   private setupCounterAnimation(): void {
     // Находим элементы с data-animate-counter
     const counters = document.querySelectorAll<HTMLElement>('[data-animate-counter]');
-    
+
     const animateCounter = (element: HTMLElement): void => {
       const target = parseInt(element.dataset.animateCounter || '0', 10);
       const duration = 2000;
@@ -118,11 +118,11 @@ export class AnimationModule extends BaseModule {
       const update = (currentTime: number): void => {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        
+
         // Используем easing функцию
         const easedProgress = easing.easeOutQuart(progress);
         const current = Math.floor(target * easedProgress);
-        
+
         element.textContent = current.toString();
 
         if (progress < 1) {
@@ -163,10 +163,10 @@ export class AnimationModule extends BaseModule {
     const update = (currentTime: number): void => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      
+
       const easedProgress = easeFn(progress);
       const current = Math.floor(start + range * easedProgress);
-      
+
       element.textContent = current.toString();
 
       if (progress < 1) {
@@ -190,7 +190,7 @@ export class AnimationModule extends BaseModule {
     const animation = (currentTime: number): void => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      
+
       const easedProgress = easing.easeInOutQuart(progress);
       window.scrollTo(0, startPosition + distance * easedProgress);
 

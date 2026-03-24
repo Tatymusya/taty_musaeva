@@ -30,7 +30,7 @@ export function initProjectImages(): void {
  */
 export function initHeroImage(): void {
   const placeholder = document.querySelector('[data-hero-image]');
-  
+
   if (placeholder) {
     const img = document.createElement('img');
     img.src = heroPng;
