@@ -103,7 +103,7 @@ class Application {
             const renderer = new RendererModule();
             await renderer.init();
             this.modules.set('renderer', renderer);
-            
+
             // Проверяем, работает ли renderer в fallback режиме
             if (renderer.isFallback()) {
               this.isFallbackMode = true;
@@ -111,29 +111,28 @@ class Application {
           },
         },
         // Scene и Interaction не загружаются в fallback режиме
-        ...(this.isFallbackMode ? [] : [
-          {
-            name: 'Scene',
-            init: () => {
-              const renderer = this.modules.get('renderer') as IRendererModule | undefined;
-              if (!renderer) throw new Error('Renderer not initialized');
-              const scene = new SceneModule(
-                renderer.getCamera(),
-                renderer.getRenderer()
-              );
-              scene.init();
-              this.modules.set('scene', scene);
-            },
-          },
-          {
-            name: 'Interaction',
-            init: () => {
-              const interaction = new InteractionModule();
-              interaction.init();
-              this.modules.set('interaction', interaction);
-            },
-          },
-        ]),
+        ...(this.isFallbackMode
+          ? []
+          : [
+              {
+                name: 'Scene',
+                init: () => {
+                  const renderer = this.modules.get('renderer') as IRendererModule | undefined;
+                  if (!renderer) throw new Error('Renderer not initialized');
+                  const scene = new SceneModule(renderer.getCamera(), renderer.getRenderer());
+                  scene.init();
+                  this.modules.set('scene', scene);
+                },
+              },
+              {
+                name: 'Interaction',
+                init: () => {
+                  const interaction = new InteractionModule();
+                  interaction.init();
+                  this.modules.set('interaction', interaction);
+                },
+              },
+            ]),
         // Остальные модули загружаются всегда
         {
           name: 'Navigation',
@@ -185,11 +184,17 @@ class Application {
       }
 
       this.isRunning = true;
-      console.log(this.isFallbackMode ? '⚠️ Running in fallback mode' : '✅ Все модули инициализированы');
+      console.log(
+        this.isFallbackMode ? '⚠️ Running in fallback mode' : '✅ Все модули инициализированы'
+      );
       this.logModuleStats();
 
-      setTimeout(() => this.hidePreloader(), 400);
-
+      // Даём время на первый рендер Three.js
+      console.log('🕒 Waiting for first render...');
+      setTimeout(() => {
+        console.log('👋 Hiding preloader');
+        this.hidePreloader();
+      }, 800);
     } catch (error) {
       setTimeout(() => this.hidePreloader(), 800);
       console.error('❌ Ошибка инициализации приложения:', error);
@@ -210,7 +215,6 @@ class Application {
    * Скрыть прелоадер с анимацией
    */
   private hidePreloader(): void {
-
     if (!this.preloader) return;
 
     this.preloader.classList.add('fade-out');
@@ -218,7 +222,6 @@ class Application {
       if (this.preloader && this.preloader.parentElement) {
         this.preloader.parentElement.removeChild(this.preloader);
       }
-
     }, 400);
   }
 
@@ -230,7 +233,7 @@ class Application {
 
     // Останавливаем модули в обратном порядке
     const moduleNames = Array.from(this.modules.keys()).reverse();
-    
+
     moduleNames.forEach((name) => {
       const module = this.modules.get(name);
       if (module?.destroy) {
@@ -248,7 +251,7 @@ class Application {
 
     this.modules.clear();
     this.isRunning = false;
-    
+
     console.log('👋 Приложение остановлено');
   }
 
@@ -303,9 +306,8 @@ async function loadFonts(): Promise<void> {
 // Инициализация после загрузки DOM
 document.addEventListener('DOMContentLoaded', async () => {
   await loadFonts();
-  
-  app.init();
 
+  app.init();
 });
 
 // Очистка при выгрузке страницы

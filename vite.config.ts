@@ -3,11 +3,9 @@ import { fileURLToPath, URL } from 'node:url';
 import { beasties } from 'vite-plugin-beasties';
 import { imagetools } from 'vite-imagetools';
 
-
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   // Базовый путь для GitHub Pages
-  // Замените 'my-vue-app' на имя вашего репозитория
-  base: process.env.GITHUB_PAGES === 'true' ? '/my-vue-app/' : '/',
+  base: mode === 'production' ? '/taty_musaeva/' : '/',
   plugins: [
     beasties({
       options: {
@@ -34,10 +32,7 @@ export default defineConfig({
       output: {
         manualChunks: (id) => {
           if (id.includes('node_modules')) {
-            if (
-              id.includes('three') ||
-              id.includes('three/examples/jsm')
-            ) {
+            if (id.includes('three') || id.includes('three/examples/jsm')) {
               return 'three';
             }
             if (id.includes('postprocessing')) {
@@ -46,7 +41,7 @@ export default defineConfig({
           }
         },
       },
-       onwarn(warning, warn) {
+      onwarn(warning, warn) {
         if (warning.code === 'MODULE_LEVEL_DIRECTIVE') return;
         warn(warning);
       },
@@ -59,4 +54,4 @@ export default defineConfig({
   optimizeDeps: {
     include: ['three', 'postprocessing'],
   },
-});
+}));
