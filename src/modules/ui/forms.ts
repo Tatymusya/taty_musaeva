@@ -9,7 +9,6 @@ export class FormModule extends BaseModule {
   private forms: Map<string, HTMLFormElement> = new Map();
   private readonly RECIPIENT_EMAIL = 'tatykolcova1234@yandex.ru';
   private isFormSubmitAvailable = true;
-  private formSubmitChecked = false;
 
   constructor() {
     super('Form');
@@ -32,7 +31,6 @@ export class FormModule extends BaseModule {
    */
   private async checkFormSubmitAvailability(): Promise<void> {
     this.isFormSubmitAvailable = await FormSubmitChecker.checkAvailability();
-    this.formSubmitChecked = true;
 
     if (!this.isFormSubmitAvailable) {
       console.warn('[FormModule] FormSubmit.co недоступен. Показываем уведомление.');
@@ -47,7 +45,7 @@ export class FormModule extends BaseModule {
     const contactForm = document.getElementById('contact-form');
     if (!contactForm) return;
 
-    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const submitBtn = contactForm.querySelector('button[type="submit"]') as HTMLButtonElement;
     if (!submitBtn) return;
 
     // Блокируем кнопку отправки
@@ -73,7 +71,7 @@ export class FormModule extends BaseModule {
   private setupForms(): void {
     // Находим все формы с атрибутом data-form
     const formElements = document.querySelectorAll<HTMLFormElement>('form[data-form]');
-    
+
     formElements.forEach((form) => {
       const formName = form.getAttribute('data-form') || `form-${this.forms.size}`;
       this.forms.set(formName, form);
@@ -166,17 +164,17 @@ export class FormModule extends BaseModule {
 
   private showFieldError(input: HTMLInputElement | HTMLTextAreaElement, message: string): void {
     input.classList.add('error');
-    
+
     const errorDiv = document.createElement('div');
     errorDiv.className = 'field-error';
     errorDiv.textContent = message;
-    
+
     input.parentNode?.appendChild(errorDiv);
   }
 
   private clearFieldError(input: HTMLInputElement | HTMLTextAreaElement): void {
     input.classList.remove('error');
-    
+
     const errorDiv = input.parentNode?.querySelector('.field-error');
     if (errorDiv) {
       errorDiv.remove();
@@ -237,7 +235,7 @@ export class FormModule extends BaseModule {
       }, 3000);
     } catch (error) {
       console.error('[FormModule] Submit error:', error);
-      
+
       submitBtn.textContent = 'Ошибка ✗';
       submitBtn.classList.add('error');
 
