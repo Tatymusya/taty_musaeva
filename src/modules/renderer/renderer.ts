@@ -78,14 +78,21 @@ export class RendererModule extends BaseModule {
       powerPreference: 'high-performance',
     });
 
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
-
-    this.renderer.setSize(this.width, this.height);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.updateSize();
     this.renderer.setClearColor(config.bgColor, 1);
 
     this.debug('WebGL renderer initialized');
+  }
+
+  /**
+   * Установка размеров
+   */
+  private updateSize(): void {
+    this.width =
+      window.visualViewport!.width || window.innerWidth || document.documentElement.clientWidth;
+    this.height = document.documentElement.clientHeight;
+    this.renderer.setSize(this.width, this.height);
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   }
 
   /**
@@ -161,14 +168,13 @@ export class RendererModule extends BaseModule {
 
   private setupResizeHandler(): void {
     const onResize = (): void => {
-      this.width = window.innerWidth;
-      this.height = window.innerHeight;
+      //this.width = window.innerWidth;
+      //this.height = window.innerHeight;
 
       this.camera.aspect = this.width / this.height;
       this.camera.updateProjectionMatrix();
 
-      this.renderer.setSize(this.width, this.height);
-      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      this.updateSize();
 
       EventManager.emit('resize', { width: this.width, height: this.height });
     };
@@ -230,9 +236,9 @@ export class RendererModule extends BaseModule {
 
       this.callbacks.forEach((callback) => callback());
 
-      EventManager.emit('tick', { 
-        delta: 0, 
-        time: performance.now() / 1000 
+      EventManager.emit('tick', {
+        delta: 0,
+        time: performance.now() / 1000
       });
     };
 
