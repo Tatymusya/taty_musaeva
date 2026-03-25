@@ -142,7 +142,7 @@ export class RendererModule extends BaseModule {
     if (document.querySelector('.fallback-image')) return;
 
     const img = document.createElement('img');
-    img.src = '/images/fallback.svg'; // путь к SVG изображению
+    img.src = './images/fallback.svg'; // путь к SVG изображению
     img.alt = '3D background not available';
     img.className = 'fallback-image';
 
