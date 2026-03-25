@@ -88,11 +88,31 @@ export class RendererModule extends BaseModule {
    * Установка размеров
    */
   private updateSize(): void {
-    this.width =
-      window.visualViewport!.width || window.innerWidth || document.documentElement.clientWidth;
-    this.height = document.documentElement.clientHeight;
-    this.renderer.setSize(this.width, this.height);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const canvas = this.renderer.domElement;
+    const pixelRatio = window.devicePixelRatio;
+    this.width = Math.floor(canvas.clientWidth * pixelRatio);
+    this.height = Math.floor(canvas.clientHeight * pixelRatio);
+    const needResize = canvas.width !== this.width || canvas.height !== this.height;
+    if (needResize) {
+      this.renderer.setSize(this.width, this.height, false);
+    }
+  }
+
+  /**
+   * Установка размеров при ресайзе
+   */
+  private setupResizeHandler(): void {
+    const onResize = (): void => {
+      this.camera.aspect = this.width / this.height;
+      this.camera.updateProjectionMatrix();
+
+      this.updateSize();
+
+      EventManager.emit('resize', { width: this.width, height: this.height });
+    };
+
+    window.addEventListener('resize', onResize);
+    this._onResize = onResize;
   }
 
   /**
@@ -166,23 +186,6 @@ export class RendererModule extends BaseModule {
     this.camera.position.z = 50;
   }
 
-  private setupResizeHandler(): void {
-    const onResize = (): void => {
-      //this.width = window.innerWidth;
-      //this.height = window.innerHeight;
-
-      this.camera.aspect = this.width / this.height;
-      this.camera.updateProjectionMatrix();
-
-      this.updateSize();
-
-      EventManager.emit('resize', { width: this.width, height: this.height });
-    };
-
-    window.addEventListener('resize', onResize);
-    this._onResize = onResize;
-  }
-
   /**
    * Добавить callback в анимационный цикл
    */
@@ -231,20 +234,6 @@ export class RendererModule extends BaseModule {
 
     this.animationFrameId = requestAnimationFrame(animate);
     this.debug('Controlled animation loop started (FPS: %d)', this.targetFps);
-
-    /*this.animationFrameId = requestAnimationFrame(animate);
-
-      this.callbacks.forEach((callback) => callback());
-
-      EventManager.emit('tick', {
-        delta: 0,
-        time: performance.now() / 1000
-      });
-    };
-
-    animate();
-    this.debug('Animation loop started');
-    */
   }
 
   /**
