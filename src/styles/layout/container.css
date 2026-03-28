@@ -9,3 +9,9 @@
   margin: 0 auto;
   padding: 0 var(--padding-horizontal);
 }
+
+@media (max-width: 468px) {
+  .app-container {
+    padding: 0;
+  }
+}
