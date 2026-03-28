@@ -33,10 +33,10 @@ export class NavigationModule extends BaseModule {
   }
 
   private cacheElements(): void {
-    this.navbar = document.querySelector('.navbar');
-    this.navLinks = document.querySelectorAll('.nav-link');
-    this.navToggle = document.querySelector('.nav-toggle');
-    this.navLinksContainer = document.querySelector('.nav-links');
+    this.navbar = document.querySelector('.app-navbar');
+    this.navLinks = document.querySelectorAll('.app-nav-links__link');
+    this.navToggle = document.querySelector('.app-nav-toggle');
+    this.navLinksContainer = document.querySelector('.app-nav-links');
   }
 
   private setupScrollHandler(): void {
@@ -70,26 +70,33 @@ export class NavigationModule extends BaseModule {
     if (!this.navLinks) return;
 
     this._updateActiveNavLink = (): void => {
-      const sections = document.querySelectorAll('.section') as NodeListOf<HTMLElement>;
+      const sections = document.querySelectorAll(
+        '.app-section'
+      ) as NodeListOf<HTMLElement>;
       const scrollPosition = window.scrollY + 100;
 
-      sections.forEach((section) => {
+      sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.offsetHeight;
         const sectionId = section.getAttribute('id') || '';
 
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-          this.navLinks?.forEach((link) => {
-            link.classList.remove('active');
+        if (
+          scrollPosition >= sectionTop &&
+          scrollPosition < sectionTop + sectionHeight
+        ) {
+          this.navLinks?.forEach(link => {
+            link.classList.remove('app-nav-links__link--active');
             if (link.getAttribute('href') === `#${sectionId}`) {
-              link.classList.add('active');
+              link.classList.add('app-nav-links__link--active');
             }
           });
         }
       });
     };
 
-    window.addEventListener('scroll', this._updateActiveNavLink, { passive: true });
+    window.addEventListener('scroll', this._updateActiveNavLink, {
+      passive: true,
+    });
 
     // Инициализация
     this._updateActiveNavLink();
@@ -117,8 +124,8 @@ export class NavigationModule extends BaseModule {
   private setupSmoothScroll(): void {
     if (!this.navLinks) return;
 
-    this.navLinks.forEach((link) => {
-      link.addEventListener('click', (e) => {
+    this.navLinks.forEach(link => {
+      link.addEventListener('click', e => {
         e.preventDefault();
         const href = link.getAttribute('href');
 

@@ -82,7 +82,7 @@ src/
 EventManager.emit('mouse:move', { x, y, normalizedX, normalizedY });
 
 // Подписка
-EventManager.on('scroll', (data) => {
+EventManager.on('scroll', data => {
   console.log('Scroll progress:', data.progress);
 });
 ```
@@ -190,7 +190,7 @@ const text = I18n.t('nav.home');
 I18n.toggleLocale();
 
 // Подписаться на изменения
-I18n.subscribe((locale) => {
+I18n.subscribe(locale => {
   // Обновить UI
 });
 ```
@@ -362,7 +362,7 @@ const text = I18n.t('nav.home');
 I18n.toggleLocale();
 
 // Подписаться на изменения
-I18n.subscribe((locale) => {
+I18n.subscribe(locale => {
   console.log('Current locale:', locale);
 });
 ```

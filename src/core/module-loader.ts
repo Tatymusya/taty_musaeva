@@ -33,14 +33,18 @@ export interface ModuleLoaderEvents {
 }
 
 class ModuleLoaderClass {
-  private listeners: Map<ModuleLoaderEvent, Set<(...args: unknown[]) => void>> = new Map();
+  private listeners: Map<ModuleLoaderEvent, Set<(...args: unknown[]) => void>> =
+    new Map();
   private completedModules: string[] = [];
   private totalModules = 0;
 
   /**
    * Подписаться на событие
    */
-  on<T extends ModuleLoaderEvent>(event: T, callback: (data: ModuleLoaderEvents[T]) => void): void {
+  on<T extends ModuleLoaderEvent>(
+    event: T,
+    callback: (data: ModuleLoaderEvents[T]) => void
+  ): void {
     if (!this.listeners.has(event)) {
       this.listeners.set(event, new Set());
     }
@@ -50,7 +54,10 @@ class ModuleLoaderClass {
   /**
    * Отписаться от события
    */
-  off<T extends ModuleLoaderEvent>(event: T, callback: (...args: unknown[]) => void): void {
+  off<T extends ModuleLoaderEvent>(
+    event: T,
+    callback: (...args: unknown[]) => void
+  ): void {
     const eventListeners = this.listeners.get(event);
     if (eventListeners) {
       eventListeners.delete(callback);
@@ -60,10 +67,13 @@ class ModuleLoaderClass {
   /**
    * Опубликовать событие
    */
-  private emit<T extends ModuleLoaderEvent>(event: T, data: ModuleLoaderEvents[T]): void {
+  private emit<T extends ModuleLoaderEvent>(
+    event: T,
+    data: ModuleLoaderEvents[T]
+  ): void {
     const eventListeners = this.listeners.get(event);
     if (eventListeners) {
-      eventListeners.forEach((callback) => callback(data as unknown));
+      eventListeners.forEach(callback => callback(data as unknown));
     }
   }
 
@@ -103,7 +113,7 @@ class ModuleLoaderClass {
 
         // Минимальная задержка между модулями для обновления UI
         if (i < modules.length - 1) {
-          await new Promise((resolve) => setTimeout(resolve, 150));
+          await new Promise(resolve => setTimeout(resolve, 150));
         }
       } catch (error) {
         this.emit('module:error', { name: module.name, error });

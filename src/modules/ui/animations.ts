@@ -33,8 +33,8 @@ export class AnimationModule extends BaseModule {
       threshold: 0.1,
     };
 
-    const observerCallback: IntersectionObserverCallback = (entries) => {
-      entries.forEach((entry) => {
+    const observerCallback: IntersectionObserverCallback = entries => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
           const element = entry.target as HTMLElement;
           element.classList.add('visible');
@@ -50,16 +50,18 @@ export class AnimationModule extends BaseModule {
     this.observer = new IntersectionObserver(observerCallback, observerOptions);
 
     // Наблюдаем за секциями
-    document.querySelectorAll('.section').forEach((section) => {
+    document.querySelectorAll('.section').forEach(section => {
       this.observer?.observe(section);
       this.animatedElements.add(section as HTMLElement);
     });
 
     // Наблюдаем за карточками проектов
-    document.querySelectorAll('.project-card, .skill-category, .contact-card').forEach((el) => {
-      this.observer?.observe(el);
-      this.animatedElements.add(el as HTMLElement);
-    });
+    document
+      .querySelectorAll('.project-card, .skill-category, .contact-card')
+      .forEach(el => {
+        this.observer?.observe(el);
+        this.animatedElements.add(el as HTMLElement);
+      });
   }
 
   private animateChildren(parent: HTMLElement): void {
@@ -85,9 +87,10 @@ export class AnimationModule extends BaseModule {
     this._onScroll = (): void => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const parallaxElements = document.querySelectorAll<HTMLElement>('[data-parallax]');
+          const parallaxElements =
+            document.querySelectorAll<HTMLElement>('[data-parallax]');
 
-          parallaxElements.forEach((element) => {
+          parallaxElements.forEach(element => {
             const speed = parseFloat(element.dataset.parallaxSpeed || '0.1');
             const rect = element.getBoundingClientRect();
 
@@ -108,7 +111,9 @@ export class AnimationModule extends BaseModule {
 
   private setupCounterAnimation(): void {
     // Находим элементы с data-animate-counter
-    const counters = document.querySelectorAll<HTMLElement>('[data-animate-counter]');
+    const counters = document.querySelectorAll<HTMLElement>(
+      '[data-animate-counter]'
+    );
 
     const animateCounter = (element: HTMLElement): void => {
       const target = parseInt(element.dataset.animateCounter || '0', 10);
@@ -134,8 +139,8 @@ export class AnimationModule extends BaseModule {
     };
 
     // Анимация при появлении в viewport
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
           animateCounter(entry.target as HTMLElement);
           observer.unobserve(entry.target);
@@ -143,7 +148,7 @@ export class AnimationModule extends BaseModule {
       });
     });
 
-    counters.forEach((counter) => observer.observe(counter));
+    counters.forEach(counter => observer.observe(counter));
   }
 
   /**
@@ -205,7 +210,11 @@ export class AnimationModule extends BaseModule {
   /**
    * Добавить класс анимации
    */
-  addAnimationClass(element: HTMLElement, className: string, delay: number = 0): void {
+  addAnimationClass(
+    element: HTMLElement,
+    className: string,
+    delay: number = 0
+  ): void {
     setTimeout(() => {
       element.classList.add(className);
     }, delay);

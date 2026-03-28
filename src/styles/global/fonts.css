@@ -9,7 +9,8 @@
 
   src:
     local('Fira Code'),
-    url('../../assets/fonts/fira-code/FiraCode-VariableFont_wght.woff2') format('woff2');
+    url('../../assets/fonts/fira-code/FiraCode-VariableFont_wght.woff2')
+      format('woff2');
 }
 
 /*** INTER ***/
@@ -23,5 +24,6 @@
 
   src:
     local('Inter'),
-    url('../../assets/fonts/inter/Inter-VariableFont_opsz,wght.woff2') format('woff2');
+    url('../../assets/fonts/inter/Inter-VariableFont_opsz,wght.woff2')
+      format('woff2');
 }

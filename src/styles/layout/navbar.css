@@ -1,0 +1,30 @@
+/* ===================================
+   Navbar
+   =================================== */
+
+.app-navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 3.125rem;
+  background: rgba(10, 25, 47, 0.85);
+  backdrop-filter: blur(10px);
+  transition: var(--transition-normal);
+}
+
+.app-navbar.scrolled {
+  padding: 0.93rem 3.125rem;
+  box-shadow: 0 0.625rem 1.875rem -0.625rem rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  .app-navbar {
+    padding: 0.93rem 1.56rem;
+  }
+}

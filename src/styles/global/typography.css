@@ -1,5 +1,14 @@
-body {
+/* ===================================
+   Typography
+   =================================== */
+
+.app {
+  font-size: 100%;
+}
+
+.app-body {
   font-family: var(--font-sans);
+  font-size: var(--base-font-size);
   color: var(--text-primary);
-  line-height: 1.6;
+  line-height: var(--base-line-height);
 }

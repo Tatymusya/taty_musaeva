@@ -27,7 +27,9 @@ interface DeviceCapabilities {
 export class DeviceCheck {
   private static capabilitiesCache: DeviceCapabilities | null = null;
 
-  static async getCapabilities(forceCheck = false): Promise<DeviceCapabilities> {
+  static async getCapabilities(
+    forceCheck = false
+  ): Promise<DeviceCapabilities> {
     // Возвращаем кэш, если уже проверяли
     if (!forceCheck && this.capabilitiesCache) {
       return this.capabilitiesCache;
@@ -39,7 +41,8 @@ export class DeviceCheck {
       lowEndDevice: false,
     };
 
-    const nav = navigator as NavigatorWithDeviceMemory & NavigatorWithConnection;
+    const nav = navigator as NavigatorWithDeviceMemory &
+      NavigatorWithConnection;
 
     // Проверка аппаратных характеристик (если доступно)
     if (nav.deviceMemory !== undefined) {
@@ -59,7 +62,10 @@ export class DeviceCheck {
           : false;
 
     // Дополнительно: медленное соединение?
-    if (nav.connection?.effectiveType && /2g|slow-2g/.test(nav.connection.effectiveType)) {
+    if (
+      nav.connection?.effectiveType &&
+      /2g|slow-2g/.test(nav.connection.effectiveType)
+    ) {
       capabilities.lowEndDevice = true;
     }
 
@@ -74,7 +80,9 @@ export class DeviceCheck {
    */
   static canUse3D(): boolean {
     if (this.capabilitiesCache) {
-      return this.capabilitiesCache.webgl && !this.capabilitiesCache.lowEndDevice;
+      return (
+        this.capabilitiesCache.webgl && !this.capabilitiesCache.lowEndDevice
+      );
     }
     // Базовая проверка WebGL без кэша
     return this.isWebGLSupported();
@@ -86,9 +94,11 @@ export class DeviceCheck {
   private static isWebGLSupported(): boolean {
     try {
       const canvas = document.createElement('canvas');
-      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      const gl =
+        canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
       return !!gl;
     } catch (e) {
+      console.error(e);
       return false;
     }
   }
@@ -102,6 +112,7 @@ export class DeviceCheck {
       const gl = canvas.getContext('webgl2');
       return !!gl;
     } catch (e) {
+      console.error(e);
       return false;
     }
   }

@@ -1,8 +1,13 @@
-@import url('app.css');
-@import url('navigation.css');
-@import url('main.css');
+@import url('nav-links.css');
+@import url('button.css');
+@import url('locale-switcher.css');
+@import url('logo.css');
 @import url('hero.css');
+@import url('scroll-indicator.css');
+@import url('code-block.css');
+@import url('gradient-text.css');
 @import url('about.css');
+@import url('skills-grid.css');
 @import url('projects.css');
 @import url('contact.css');
-@import url('footer.css');
+@import url('form.css');

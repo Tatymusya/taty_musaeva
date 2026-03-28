@@ -50,7 +50,10 @@ export class PostProcessor {
     });
 
     //this.bloomPass = new EffectPass(camera, bloomEffect);
-    this.brightnessContrastPass = new EffectPass(camera, brightnessContrastEffect);
+    this.brightnessContrastPass = new EffectPass(
+      camera,
+      brightnessContrastEffect
+    );
     //this.composer.addPass(this.bloomPass);
     this.composer.addPass(this.brightnessContrastPass);
 

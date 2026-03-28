@@ -70,7 +70,12 @@ export function mapRange(
 /**
  * Вычислить расстояние между двумя точками
  */
-export function distance(x1: number, y1: number, x2: number, y2: number): number {
+export function distance(
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number
+): number {
   return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
 }
 
@@ -116,7 +121,8 @@ export const easing = {
   // Quadratic
   easeInQuad: (t: number): number => t * t,
   easeOutQuad: (t: number): number => t * (2 - t),
-  easeInOutQuad: (t: number): number => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t),
+  easeInOutQuad: (t: number): number =>
+    t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
 
   // Cubic
   easeInCubic: (t: number): number => t * t * t,
@@ -127,7 +133,8 @@ export const easing = {
   // Quartic
   easeInQuart: (t: number): number => t * t * t * t,
   easeOutQuart: (t: number): number => 1 - --t * t * t * t,
-  easeInOutQuart: (t: number): number => (t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t),
+  easeInOutQuart: (t: number): number =>
+    t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t,
 
   // Quintic
   easeInQuint: (t: number): number => t * t * t * t * t,
@@ -174,7 +181,11 @@ export const easing = {
   // Elastic
   easeOutElastic: (t: number): number => {
     const c4 = (2 * Math.PI) / 3;
-    return t === 0 ? 0 : t === 1 ? 1 : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
+    return t === 0
+      ? 0
+      : t === 1
+        ? 1
+        : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
   },
 
   // Bounce

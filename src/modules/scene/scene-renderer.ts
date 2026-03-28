@@ -65,7 +65,10 @@ export class SceneRenderer {
       this.velocities[i3 + 2] = (Math.random() - 0.5) * 0.02;
     }
 
-    geometry.setAttribute('position', new THREE.BufferAttribute(this.positions, 3));
+    geometry.setAttribute(
+      'position',
+      new THREE.BufferAttribute(this.positions, 3)
+    );
 
     const material = new THREE.PointsMaterial({
       color: config.particleColor,
@@ -86,7 +89,10 @@ export class SceneRenderer {
     const lineColors = new Float32Array(maxLines * 3);
 
     const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+    geometry.setAttribute(
+      'position',
+      new THREE.BufferAttribute(linePositions, 3)
+    );
     geometry.setAttribute('color', new THREE.BufferAttribute(lineColors, 3));
 
     const material = new THREE.LineBasicMaterial({
@@ -137,8 +143,10 @@ export class SceneRenderer {
    */
   updateLines(): void {
     const config = getConfig('three');
-    const linePositions = this.linesMesh.geometry.attributes.position.array as Float32Array;
-    const lineColors = this.linesMesh.geometry.attributes.color.array as Float32Array;
+    const linePositions = this.linesMesh.geometry.attributes.position
+      .array as Float32Array;
+    const lineColors = this.linesMesh.geometry.attributes.color
+      .array as Float32Array;
 
     let lineIndex = 0;
     const color = new THREE.Color(config.particleColor);
@@ -196,14 +204,19 @@ export class SceneRenderer {
       const distance = Math.sqrt(dx * dx + dy * dy);
 
       if (distance < config.mouseInteractionRadius) {
-        const force = (config.mouseInteractionRadius - distance) / config.mouseInteractionRadius;
+        const force =
+          (config.mouseInteractionRadius - distance) /
+          config.mouseInteractionRadius;
         this.positions[i3] += (dx / distance) * force * 2;
         this.positions[i3 + 1] += (dy / distance) * force * 2;
       }
 
-      this.positions[i3] += (this.originalPositions[i3] - this.positions[i3]) * 0.02;
-      this.positions[i3 + 1] += (this.originalPositions[i3 + 1] - this.positions[i3 + 1]) * 0.02;
-      this.positions[i3 + 2] += (this.originalPositions[i3 + 2] - this.positions[i3 + 2]) * 0.02;
+      this.positions[i3] +=
+        (this.originalPositions[i3] - this.positions[i3]) * 0.02;
+      this.positions[i3 + 1] +=
+        (this.originalPositions[i3 + 1] - this.positions[i3 + 1]) * 0.02;
+      this.positions[i3 + 2] +=
+        (this.originalPositions[i3 + 2] - this.positions[i3 + 2]) * 0.02;
 
       const time = Date.now() * 0.001;
       this.positions[i3] += Math.sin(time + i) * 0.01;

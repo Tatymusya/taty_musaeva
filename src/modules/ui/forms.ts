@@ -35,7 +35,9 @@ export class FormModule extends BaseModule {
    */
   private updateMessagesTranslations(): void {
     // Обновляем сообщение о недоступности сервиса
-    const unavailableMessage = document.querySelector('.service-unavailable-message');
+    const unavailableMessage = document.querySelector(
+      '.service-unavailable-message'
+    );
     if (unavailableMessage) {
       unavailableMessage.innerHTML = `
         <p>⚠️ ${I18n.t('contact.unavailableTitle')}</p>
@@ -45,8 +47,10 @@ export class FormModule extends BaseModule {
     }
 
     // Обновляем ошибки валидации
-    document.querySelectorAll('.field-error').forEach((el) => {
-      const input = el.previousElementSibling as HTMLInputElement | HTMLTextAreaElement;
+    document.querySelectorAll('.field-error').forEach(el => {
+      const input = el.previousElementSibling as
+        | HTMLInputElement
+        | HTMLTextAreaElement;
       if (input?.required && !input.value.trim()) {
         el.textContent = I18n.t('contact.fieldRequired');
       } else if (input?.type === 'email') {
@@ -57,8 +61,14 @@ export class FormModule extends BaseModule {
     // Обновляем текст кнопки отправки
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
-      const submitBtn = contactForm.querySelector('button[type="submit"]') as HTMLButtonElement;
-      if (submitBtn && !submitBtn.disabled && !submitBtn.classList.contains('success')) {
+      const submitBtn = contactForm.querySelector(
+        'button[type="submit"]'
+      ) as HTMLButtonElement;
+      if (
+        submitBtn &&
+        !submitBtn.disabled &&
+        !submitBtn.classList.contains('button--success')
+      ) {
         submitBtn.textContent = I18n.t('contact.formSubmit');
       }
     }
@@ -71,7 +81,9 @@ export class FormModule extends BaseModule {
     this.isFormSubmitAvailable = await FormSubmitChecker.checkAvailability();
 
     if (!this.isFormSubmitAvailable) {
-      console.warn('[FormModule] FormSubmit.co недоступен. Показываем уведомление.');
+      console.warn(
+        '[FormModule] FormSubmit.co недоступен. Показываем уведомление.'
+      );
       this.showServiceUnavailableMessage();
     }
   }
@@ -83,16 +95,20 @@ export class FormModule extends BaseModule {
     const contactForm = document.getElementById('contact-form');
     if (!contactForm) return;
 
-    const submitBtn = contactForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const submitBtn = contactForm.querySelector(
+      'button[type="submit"]'
+    ) as HTMLButtonElement;
     if (!submitBtn) return;
 
     // Блокируем кнопку отправки
     submitBtn.disabled = true;
     submitBtn.textContent = I18n.t('contact.serviceUnavailable');
-    submitBtn.classList.add('unavailable');
+    submitBtn.classList.add('button--unavailable');
 
     // Добавляем сообщение под формой
-    const existingMessage = contactForm.querySelector('.service-unavailable-message');
+    const existingMessage = contactForm.querySelector(
+      '.service-unavailable-message'
+    );
     if (existingMessage) return;
 
     const messageDiv = document.createElement('div');
@@ -108,16 +124,20 @@ export class FormModule extends BaseModule {
 
   private setupForms(): void {
     // Находим все формы с атрибутом data-form
-    const formElements = document.querySelectorAll<HTMLFormElement>('form[data-form]');
+    const formElements =
+      document.querySelectorAll<HTMLFormElement>('form[data-form]');
 
-    formElements.forEach((form) => {
-      const formName = form.getAttribute('data-form') || `form-${this.forms.size}`;
+    formElements.forEach(form => {
+      const formName =
+        form.getAttribute('data-form') || `form-${this.forms.size}`;
       this.forms.set(formName, form);
       this.setupFormHandler(form);
     });
 
     // Контактная форма (по ID)
-    const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+    const contactForm = document.getElementById(
+      'contact-form'
+    ) as HTMLFormElement;
     if (contactForm) {
       this.forms.set('contact', contactForm);
       this.setupFormHandler(contactForm);
@@ -125,7 +145,7 @@ export class FormModule extends BaseModule {
   }
 
   private setupFormHandler(form: HTMLFormElement): void {
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', async e => {
       e.preventDefault();
 
       const formData = new FormData(form);
@@ -144,8 +164,10 @@ export class FormModule extends BaseModule {
     });
 
     // Валидация в реальном времени
-    const inputs = form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input, textarea');
-    inputs.forEach((input) => {
+    const inputs = form.querySelectorAll<
+      HTMLInputElement | HTMLTextAreaElement
+    >('input, textarea');
+    inputs.forEach(input => {
       input.addEventListener('blur', () => {
         this.validateField(input);
       });
@@ -158,9 +180,11 @@ export class FormModule extends BaseModule {
 
   private validateForm(form: HTMLFormElement): boolean {
     let isValid = true;
-    const inputs = form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input, textarea');
+    const inputs = form.querySelectorAll<
+      HTMLInputElement | HTMLTextAreaElement
+    >('input, textarea');
 
-    inputs.forEach((input) => {
+    inputs.forEach(input => {
       if (!this.validateField(input)) {
         isValid = false;
       }
@@ -169,7 +193,9 @@ export class FormModule extends BaseModule {
     return isValid;
   }
 
-  private validateField(input: HTMLInputElement | HTMLTextAreaElement): boolean {
+  private validateField(
+    input: HTMLInputElement | HTMLTextAreaElement
+  ): boolean {
     const value = input.value.trim();
     const type = input.type;
 
@@ -193,7 +219,10 @@ export class FormModule extends BaseModule {
 
     // Минимальная длина
     if (input.minLength && value.length < input.minLength) {
-      const message = I18n.t('contact.fieldMinLength').replace('{min}', String(input.minLength));
+      const message = I18n.t('contact.fieldMinLength').replace(
+        '{min}',
+        String(input.minLength)
+      );
       this.showFieldError(input, message);
       return false;
     }
@@ -201,7 +230,10 @@ export class FormModule extends BaseModule {
     return true;
   }
 
-  private showFieldError(input: HTMLInputElement | HTMLTextAreaElement, message: string): void {
+  private showFieldError(
+    input: HTMLInputElement | HTMLTextAreaElement,
+    message: string
+  ): void {
     input.classList.add('error');
 
     const errorDiv = document.createElement('div');
@@ -220,8 +252,13 @@ export class FormModule extends BaseModule {
     }
   }
 
-  private async submitForm(form: HTMLFormElement, data: Record<string, unknown>): Promise<void> {
-    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+  private async submitForm(
+    form: HTMLFormElement,
+    data: Record<string, unknown>
+  ): Promise<void> {
+    const submitBtn = form.querySelector(
+      'button[type="submit"]'
+    ) as HTMLButtonElement;
     const originalText = submitBtn.textContent;
 
     // Проверяем доступность FormSubmit
@@ -239,19 +276,22 @@ export class FormModule extends BaseModule {
 
     try {
       // Отправка через FormSubmit.co AJAX API
-      const response = await fetch(FormSubmitChecker.getSubmitUrl(this.RECIPIENT_EMAIL), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          from_name: data.name as string,
-          from_email: data.email as string,
-          message: data.message as string,
-          // Скрытые поля для настройки
-          _subject: 'Новое сообщение с портфолио!',
-          _captcha: 'false', // Отключаем капчу
-          _template: 'table', // Красивый шаблон письма
-        }),
-      });
+      const response = await fetch(
+        FormSubmitChecker.getSubmitUrl(this.RECIPIENT_EMAIL),
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            from_name: data.name as string,
+            from_email: data.email as string,
+            message: data.message as string,
+            // Скрытые поля для настройки
+            _subject: 'Новое сообщение с портфолио!',
+            _captcha: 'false', // Отключаем капчу
+            _template: 'table', // Красивый шаблон письма
+          }),
+        }
+      );
 
       const result = await response.json();
 
@@ -261,7 +301,7 @@ export class FormModule extends BaseModule {
 
       // Успех
       submitBtn.textContent = I18n.t('contact.formSuccess') + ' ✓';
-      submitBtn.classList.add('success');
+      submitBtn.classList.add('button--success');
 
       console.log('[FormModule] Form submitted successfully:', data);
 
@@ -269,14 +309,14 @@ export class FormModule extends BaseModule {
       setTimeout(() => {
         submitBtn.textContent = originalText || I18n.t('contact.formSubmit');
         submitBtn.disabled = false;
-        submitBtn.classList.remove('success');
+        submitBtn.classList.remove('button--success');
         form.reset();
       }, 3000);
     } catch (error) {
       console.error('[FormModule] Submit error:', error);
 
       submitBtn.textContent = I18n.t('contact.formError');
-      submitBtn.classList.add('error');
+      submitBtn.classList.add('button--error');
 
       // Показываем сообщение об ошибке
       const errorDiv = document.createElement('div');
@@ -296,7 +336,7 @@ export class FormModule extends BaseModule {
       setTimeout(() => {
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
-        submitBtn.classList.remove('error');
+        submitBtn.classList.remove('button--error');
       }, 3000);
     }
   }

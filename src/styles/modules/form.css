@@ -1,0 +1,74 @@
+/* ===================================
+   Form
+   =================================== */
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group__input,
+.form-group__textarea {
+  width: 100%;
+  padding: 0.937rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  transition: var(--transition-fast);
+}
+
+.form-group__input:focus,
+.form-group__textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.form-group__input.error,
+.form-group__textarea.error {
+  border-color: var(--accent-red);
+}
+
+.field-error {
+  color: var(--accent-red);
+  font-size: 0.8rem;
+  margin-top: 0.31rem;
+  font-family: var(--font-mono);
+}
+
+.form-group__textarea {
+  resize: vertical;
+  min-height: 7.5rem;
+}
+
+/* Сообщение об ошибке отправки */
+.form-submit-error {
+  background: rgba(255, 159, 26, 0.1);
+  border: 1px solid var(--accent-yellow);
+  border-radius: var(--radius-md);
+  padding: 0.937rem;
+  margin-top: 0.937rem;
+  text-align: left;
+}
+
+.form-submit-error p {
+  color: var(--text-secondary);
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.form-submit-error p:first-child {
+  color: var(--accent-yellow);
+  font-weight: 600;
+  margin-top: 0;
+}
+
+.form-submit-error a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.form-submit-error a:hover {
+  text-decoration: underline;
+}

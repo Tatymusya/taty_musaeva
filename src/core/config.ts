@@ -52,7 +52,10 @@ export function getConfig<T extends keyof AppConfig | string>(
 /**
  * Обновить конфигурацию
  */
-export function setConfig<T extends keyof AppConfig>(path: T, value: AppConfig[T]): void {
+export function setConfig<T extends keyof AppConfig>(
+  path: T,
+  value: AppConfig[T]
+): void {
   const keys = path.split('.');
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let target: any = config;

@@ -33,27 +33,29 @@ export class LocaleModule extends BaseModule {
    */
   private createLocaleSwitcher(): void {
     // Создаём кнопку в навигации
-    const navbar = document.querySelector('.nav-links');
+    const navbar = document.querySelector('.app-nav-links');
 
     if (navbar) {
       const localeItem = document.createElement('li');
-      localeItem.className = 'locale-item';
+      localeItem.className = 'app-locale-switcher';
 
       this.toggleButton = document.createElement('button');
-      this.toggleButton.className = 'locale-toggle';
+      this.toggleButton.className = 'app-locale-switcher__toggle';
       this.toggleButton.setAttribute('aria-label', 'Switch language');
 
       // Иконка глобуса
       this.toggleButton.innerHTML = `
-        <svg class="locale-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg class="app-locale-switcher__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="10"/>
           <line x1="2" y1="12" x2="22" y2="12"/>
           <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
         </svg>
-        <span class="locale-text">${I18n.getLocale().toUpperCase()}</span>
+        <span class="app-locale-switcher__text">${I18n.getLocale().toUpperCase()}</span>
       `;
 
-      this.localeDisplay = this.toggleButton.querySelector('.locale-text');
+      this.localeDisplay = this.toggleButton.querySelector(
+        '.app-locale-switcher__text'
+      );
 
       localeItem.appendChild(this.toggleButton);
       navbar.appendChild(localeItem);

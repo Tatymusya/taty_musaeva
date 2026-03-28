@@ -92,7 +92,8 @@ export class RendererModule extends BaseModule {
     const pixelRatio = window.devicePixelRatio;
     this.width = Math.floor(canvas.clientWidth * pixelRatio);
     this.height = Math.floor(canvas.clientHeight * pixelRatio);
-    const needResize = canvas.width !== this.width || canvas.height !== this.height;
+    const needResize =
+      canvas.width !== this.width || canvas.height !== this.height;
     if (needResize) {
       this.renderer.setSize(this.width, this.height, false);
     }
@@ -214,7 +215,7 @@ export class RendererModule extends BaseModule {
         this.lastTime = time;
 
         // Выполняем все callback'и (например, обновление сцены)
-        this.callbacks.forEach((callback) => {
+        this.callbacks.forEach(callback => {
           try {
             callback();
           } catch (error) {

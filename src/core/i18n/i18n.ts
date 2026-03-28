@@ -88,7 +88,10 @@ class I18nClass {
     let value = getValueByPath(this.translations[this.config.locale], key);
 
     if (!value) {
-      value = getValueByPath(this.translations[this.config.fallbackLocale], key);
+      value = getValueByPath(
+        this.translations[this.config.fallbackLocale],
+        key
+      );
     }
 
     const result = typeof value === 'string' ? value : key;
@@ -172,7 +175,7 @@ class I18nClass {
    * Уведомить слушателей об изменении
    */
   private notifyListeners(): void {
-    this.listeners.forEach((callback) => callback(this.config.locale));
+    this.listeners.forEach(callback => callback(this.config.locale));
   }
 
   /**
@@ -182,7 +185,7 @@ class I18nClass {
     // Обновляем элементы с data-i18n
     const elements = document.querySelectorAll('[data-i18n]');
 
-    elements.forEach((element) => {
+    elements.forEach(element => {
       const key = element.getAttribute('data-i18n');
 
       if (!key) return;
@@ -211,7 +214,7 @@ class I18nClass {
       '[data-i18n-placeholder]:not([data-i18n])'
     );
 
-    placeholderElements.forEach((element) => {
+    placeholderElements.forEach(element => {
       const key = element.getAttribute('data-i18n-placeholder');
 
       if (!key) return;

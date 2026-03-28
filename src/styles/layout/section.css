@@ -1,9 +1,41 @@
-.section {
+/* ===================================
+   Section
+   =================================== */
+
+.app-section {
+  padding: var(--section-padding-min-320) 0;
+  display: flex;
+  align-items: center;
   animation: fadeInUp 0.6s ease forwards;
 }
 
-@media (max-width: 768px) {
-  .section {
-    padding: 60px 0;
+.app-section__title {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 2rem;
+  margin-bottom: 2.5rem;
+  color: var(--text-primary);
+}
+
+.app-section__number {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+}
+
+.app-section__title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--bg-tertiary);
+  max-width: 18.75rem;
+  margin-left: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .app-section {
+    min-height: 100vh;
+    padding: var(--section-padding-min-768) 0;
   }
 }

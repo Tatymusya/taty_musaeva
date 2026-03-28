@@ -11,7 +11,8 @@ export const en: ITranslation = {
     greeting: 'Hello, my name is',
     title: 'Tany Musaeva',
     subtitle: 'Full-Stack Developer',
-    description: 'I build performant and beautiful web applications using modern technologies',
+    description:
+      'I build performant and beautiful web applications using modern technologies',
     viewWork: 'View Work',
     contact: 'Contact',
   },
@@ -63,7 +64,8 @@ export const en: ITranslation = {
     serviceUnavailable: 'Service Unavailable',
     unavailableTitle: 'Mail delivery service is temporarily unavailable.',
     unavailableText: 'You can write to me directly:',
-    unavailableReason: 'The service may be blocked in your region or requires VPN.',
+    unavailableReason:
+      'The service may be blocked in your region or requires VPN.',
     fieldRequired: 'This field is required',
     fieldEmailInvalid: 'Enter a valid email address',
     fieldMinLength: 'Minimum length: {min} characters',

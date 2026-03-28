@@ -5,8 +5,11 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Портфолио разработчика | Таня Мусаева</title>
-    <meta name="description" content="Портфолио Full-Stack разработчика. Создание современных веб-приложений на PHP, Vue, Node.js">
-      <!-- Critical CSS (встроенный) -->
+    <meta
+      name="description"
+      content="Портфолио Full-Stack разработчика. Создание современных веб-приложений на PHP, Vue, Node.js"
+    />
+    <!-- Critical CSS (встроенный) -->
     <style>
       /* Минимальные стили для прелоадера */
       #preloader {
@@ -16,7 +19,11 @@
         width: 100%;
         height: 100%;
         background: #0a192f;
-        background-image: radial-gradient( circle farthest-corner at 10% 20%, #233554 0.1%, #0a192f 94.2%);
+        background-image: radial-gradient(
+          circle farthest-corner at 10% 20%,
+          #233554 0.1%,
+          #0a192f 94.2%
+        );
         background-size: 100%;
         color: white;
         display: flex;
@@ -48,15 +55,34 @@
         animation: squareWave 1.2s ease-in-out infinite;
       }
 
-      .square:nth-child(1) { opacity: 0.2; animation-delay: 0s; }
-      .square:nth-child(2) { opacity: 0.35; animation-delay: 0.1s; }
-      .square:nth-child(3) { opacity: 0.5; animation-delay: 0.2s; }
-      .square:nth-child(4) { opacity: 0.65; animation-delay: 0.3s; }
-      .square:nth-child(5) { opacity: 0.8; animation-delay: 0.4s; }
-      .square:nth-child(6) { opacity: 0.85; animation-delay: 0.5s; }
+      .square:nth-child(1) {
+        opacity: 0.2;
+        animation-delay: 0s;
+      }
+      .square:nth-child(2) {
+        opacity: 0.35;
+        animation-delay: 0.1s;
+      }
+      .square:nth-child(3) {
+        opacity: 0.5;
+        animation-delay: 0.2s;
+      }
+      .square:nth-child(4) {
+        opacity: 0.65;
+        animation-delay: 0.3s;
+      }
+      .square:nth-child(5) {
+        opacity: 0.8;
+        animation-delay: 0.4s;
+      }
+      .square:nth-child(6) {
+        opacity: 0.85;
+        animation-delay: 0.5s;
+      }
 
       @keyframes squareWave {
-        0%, 100% {
+        0%,
+        100% {
           transform: translateY(0) scale(1);
         }
         50% {
@@ -83,7 +109,7 @@
       }
     </style>
   </head>
-  <body class="app__body">
+  <body class="app-body">
     <div id="preloader" class="preloader">
       <div class="preloader-squares">
         <div class="square"></div>
@@ -93,56 +119,70 @@
         <div class="square"></div>
         <div class="square"></div>
       </div>
-      <p class="preloader-text" id="preloader-text">Loading: <span class="module-name" id="module-name">Initializing...</span></p>
+      <p class="preloader-text" id="preloader-text">
+        Loading: <span class="module-name" id="module-name">Initializing...</span>
+      </p>
     </div>
 
     <!-- 3D Canvas Background -->
-    <canvas id="webgl-canvas"></canvas>
-    
+    <canvas id="webgl-canvas" class="app-canvas-bg"></canvas>
+
     <!-- Navigation -->
-    <nav class="navbar">
-      <div class="nav-logo">
-        <span class="logo-text">&lt;IP /&gt;</span>
+    <nav class="app-navbar">
+      <div class="app-logo">
+        <span class="app-logo__text">&lt;IP /&gt;</span>
       </div>
-      <ul class="nav-links">
-        <li><a href="#home" class="nav-link active" data-i18n="nav.home">Главная</a></li>
-        <li><a href="#about" class="nav-link" data-i18n="nav.about">Обо мне</a></li>
-        <li><a href="#projects" class="nav-link" data-i18n="nav.projects">Проекты</a></li>
-        <li><a href="#contact" class="nav-link" data-i18n="nav.contact">Контакты</a></li>
+      <ul class="app-nav-links">
+        <li>
+          <a
+            href="#home"
+            class="app-nav-links__link app-nav-links__link--active"
+            data-i18n="nav.home"
+            >Главная</a
+          >
+        </li>
+        <li><a href="#about" class="app-nav-links__link" data-i18n="nav.about">Обо мне</a></li>
+        <li>
+          <a href="#projects" class="app-nav-links__link" data-i18n="nav.projects">Проекты</a>
+        </li>
+        <li><a href="#contact" class="app-nav-links__link" data-i18n="nav.contact">Контакты</a></li>
       </ul>
-      <button class="nav-toggle" aria-label="Menu">
-        <span></span>
-        <span></span>
-        <span></span>
+      <button class="app-nav-toggle" aria-label="Menu">
+        <span class="app-nav-toggle__item"></span>
+        <span class="app-nav-toggle__item"></span>
+        <span class="app-nav-toggle__item"></span>
       </button>
     </nav>
 
     <!-- Main Content -->
-    <main>
+    <main class="app-main">
       <!-- Hero Section -->
-      <section id="home" class="section hero-section">
-        <div class="container">
-          <div class="hero-content">
-            <p class="hero-greeting" data-i18n="hero.greeting">Привет, меня зовут</p>
-            <h1 class="hero-title">
+      <section id="home" class="app-section hero">
+        <div class="app-container">
+          <div class="hero__content">
+            <p class="hero__greeting" data-i18n="hero.greeting">Привет, меня зовут</p>
+            <h1 class="hero__title">
               <span class="gradient-text" data-i18n="hero.title">Таня Мусаева</span>
             </h1>
-            <h2 class="hero-subtitle" data-i18n="hero.subtitle">Full-Stack Разработчик</h2>
-            <p class="hero-description" data-i18n="hero.description">
-              Создаю производительные и красивые веб-приложения
-              с использованием современного стека
+            <h2 class="hero__subtitle" data-i18n="hero.subtitle">Full-Stack Разработчик</h2>
+            <p class="hero__description" data-i18n="hero.description">
+              Создаю производительные и красивые веб-приложения с использованием современного стека
             </p>
-            <div class="hero-buttons">
-              <a href="#projects" class="btn btn-primary" data-i18n="hero.viewWork">Мои работы</a>
-              <a href="#contact-methods" class="btn btn-secondary" data-i18n="hero.contact">Связаться</a>
+            <div class="hero__buttons">
+              <a href="#projects" class="button button--primary" data-i18n="hero.viewWork"
+                >Мои работы</a
+              >
+              <a href="#contact-methods" class="button button--secondary" data-i18n="hero.contact"
+                >Связаться</a
+              >
             </div>
           </div>
-          <div class="hero-visual">
+          <div class="hero__visual">
             <div class="code-block">
-              <div class="code-header">
-                <span class="dot red"></span>
-                <span class="dot yellow"></span>
-                <span class="dot green"></span>
+              <div class="code-block__header">
+                <span class="code-block__dot code-block__dot--red"></span>
+                <span class="code-block__dot code-block__dot--yellow"></span>
+                <span class="code-block__dot code-block__dot--green"></span>
               </div>
               <pre><code><span class="keyword">const</span> <span class="variable">developer</span> = {
   <span class="property">name</span>: <span class="string" data-i18n="hero.title">"Таня Мусаева"</span>,
@@ -155,67 +195,70 @@
         </div>
         <div class="scroll-indicator">
           <span data-i18n="common.scroll">Листайте вниз</span>
-          <div class="scroll-arrow"></div>
+          <div class="scroll-indicator__arrow"></div>
         </div>
       </section>
 
       <!-- About Section -->
-      <section id="about" class="section about-section">
-        <div class="container">
-          <h2 class="section-title">
-            <span class="section-number">01.</span> <span data-i18n="about.title">Обо мне</span>
+      <section id="about" class="app-section about">
+        <div class="app-container">
+          <h2 class="app-section__title">
+            <span class="app-section__number">01.</span>
+            <span data-i18n="about.title">Обо мне</span>
           </h2>
-          <div class="about-content">
-            <div class="about-text">
+          <div class="about__content">
+            <div class="about__text">
               <p data-i18n="about.intro1">
-                Привет! Я <strong>Таня</strong>, разработчик с опытом более 3 лет в создании адаптивных и мобильных приложений.
-                Имею опыт полного цикла разработки: от создания проектов с нуля до поддержки и рефакторинга legacy-систем. Специализируюсь на адаптивных интерфейсов, оптимизации производительности, построении UI-китов.
+                Привет! Я <strong>Таня</strong>, разработчик с опытом более 3 лет в создании
+                адаптивных и мобильных приложений. Имею опыт полного цикла разработки: от создания
+                проектов с нуля до поддержки и рефакторинга legacy-систем. Специализируюсь на
+                адаптивных интерфейсов, оптимизации производительности, построении UI-китов.
               </p>
               <p data-i18n="about.intro2">
-                Сегодня я <strong>Full-Stack разработчик</strong>, 
-                создавая масштабируемые приложения с отличным пользовательским опытом и различными креативами.
+                Сегодня я <strong>Full-Stack разработчик</strong>, создавая масштабируемые
+                приложения с отличным пользовательским опытом и различными креативами.
               </p>
-              
+
               <div class="skills-grid">
-                <div class="skill-category">
-                  <h3 data-i18n="about.frontend">Frontend</h3>
-                  <ul class="skill-list">
-                    <li>Vue / Nuxt</li>
-                    <li>JavaScript</li>
-                    <li>TypeScript</li>
-                    <li>PixiJS</li>
-                    <li>Three.js</li>
-                    <li>Modern CSS</li>
+                <div class="skills-grid__category">
+                  <h3 class="skills-grid__title" data-i18n="about.frontend">Frontend</h3>
+                  <ul class="skills-grid__list">
+                    <li class="skills-grid__list-item">Vue / Nuxt</li>
+                    <li class="skills-grid__list-item">JavaScript</li>
+                    <li class="skills-grid__list-item">TypeScript</li>
+                    <li class="skills-grid__list-item">PixiJS</li>
+                    <li class="skills-grid__list-item">Three.js</li>
+                    <li class="skills-grid__list-item">Modern CSS</li>
                   </ul>
                 </div>
-                <div class="skill-category">
-                  <h3 data-i18n="about.backend">Backend</h3>
-                  <ul class="skill-list">
-                    <li>PHP</li>
-                    <li>Python</li>
-                    <li>SQL</li>
-                    <li>MongoDB</li>
-                    <li>Node</li>
-                    <li>Laravel</li>
+                <div class="skills-grid__category">
+                  <h3 class="skills-grid__title" data-i18n="about.backend">Backend</h3>
+                  <ul class="skills-grid__list">
+                    <li class="skills-grid__list-item">PHP</li>
+                    <li class="skills-grid__list-item">Python</li>
+                    <li class="skills-grid__list-item">SQL</li>
+                    <li class="skills-grid__list-item">MongoDB</li>
+                    <li class="skills-grid__list-item">Node</li>
+                    <li class="skills-grid__list-item">Laravel</li>
                   </ul>
                 </div>
-                <div class="skill-category">
-                  <h3 data-i18n="about.tools">Tools</h3>
-                  <ul class="skill-list">
-                    <li>Git / GitHub</li>
-                    <li>Docker</li>
-                    <li>Figma</li>
-                    <li>Vite</li>
-                    <li>ESLint</li>
-                    <li>Prettier</li>
+                <div class="skills-grid__category">
+                  <h3 class="skills-grid__title" data-i18n="about.tools">Tools</h3>
+                  <ul class="skills-grid__list">
+                    <li class="skills-grid__list-item">Git / GitHub</li>
+                    <li class="skills-grid__list-item">Docker</li>
+                    <li class="skills-grid__list-item">Figma</li>
+                    <li class="skills-grid__list-item">Vite</li>
+                    <li class="skills-grid__list-item">ESLint</li>
+                    <li class="skills-grid__list-item">Prettier</li>
                   </ul>
                 </div>
               </div>
             </div>
-            <div class="about-image">
-              <div class="image-wrapper">
-                <div class="profile-image-placeholder"></div>
-                <div class="image-overlay"></div>
+            <div class="about__image">
+              <div class="about__image-wrapper">
+                <div class="about__image-placeholder"></div>
+                <div class="about__image-overlay"></div>
               </div>
             </div>
           </div>
@@ -223,45 +266,62 @@
       </section>
 
       <!-- Projects Section -->
-      <section id="projects" class="section projects-section">
-        <div class="container">
-          <h2 class="section-title">
-            <span class="section-number">02.</span> <span data-i18n="projects.title">Мои проекты</span>
+      <section id="projects" class="app-section projects">
+        <div class="app-container">
+          <h2 class="app-section__title">
+            <span class="app-section__number">02.</span>
+            <span data-i18n="projects.title">Мои проекты</span>
           </h2>
           <div class="projects-grid">
             <!-- Project Card 1 -->
-            <article class="project-card featured" data-project-image>
-              <div class="project-image">
-                <div class="project-image-placeholder"></div>
-                <div class="project-overlay"></div>
+            <article class="projects-grid__card projects-grid__card--featured" data-project-image>
+              <div class="projects-grid__image-wrap">
+                <div class="projects-grid__image-placeholder"></div>
+                <div class="projects-grid__image-overlay"></div>
               </div>
-              <div class="project-content">
-                <p class="project-category" data-i18n="projects.fullstack">Full-Stack Разработка</p>
-                <h3 class="project-title" data-i18n="projects.ecommerce">E-commerce Платформа</h3>
-                <div class="project-description">
-                  <p data-i18n="projects.ecommerceDesc">Современная платформа электронной коммерции с интеграцией платежей, 
-                    управлением заказами и аналитикой в реальном времени.</p>
+              <div class="projects-grid__content">
+                <p class="projects-grid__category" data-i18n="projects.fullstack">
+                  Full-Stack Разработка
+                </p>
+                <h3 class="projects-grid__title" data-i18n="projects.ecommerce">
+                  E-commerce Платформа
+                </h3>
+                <div class="projects-grid__description">
+                  <p data-i18n="projects.ecommerceDesc">
+                    Современная платформа электронной коммерции с интеграцией платежей, управлением
+                    заказами и аналитикой в реальном времени.
+                  </p>
                 </div>
-                <ul class="project-tech">
-                  <li>React</li>
-                  <li>Node.js</li>
-                  <li>MongoDB</li>
-                  <li>Stripe</li>
+                <ul class="project-tech-list">
+                  <li class="project-tech-list__item">React</li>
+                  <li class="project-tech-list__item">Node.js</li>
+                  <li class="project-tech-list__item">MongoDB</li>
+                  <li class="project-tech-list__item">Stripe</li>
                 </ul>
-                <div class="project-links">
-                  <a href="https://github.com/Tatymusya?tab=repositories" target="_blank" class="project-link" aria-label="GitHub">
+                <div class="project-tech-links">
+                  <a
+                    href="https://github.com/Tatymusya?tab=repositories"
+                    target="_blank"
+                    class="project-tech-links__item"
+                    aria-label="GitHub"
+                  >
                     <svg class="icon"><use href="#github-icon"></use></svg>
                   </a>
-                  <a href="#" class="project-link" aria-label="Live Demo">
+                  <a href="#" class="project-tech-links__item" aria-label="Live Demo">
                     <svg class="icon"><use href="#external-link-icon"></use></svg>
                   </a>
                 </div>
               </div>
             </article>
           </div>
-          
+
           <div class="projects-cta">
-            <a href="https://github.com/Tatymusya?tab=repositories" target="_blank" class="btn btn-secondary" data-i18n="projects.viewMore">
+            <a
+              href="https://github.com/Tatymusya?tab=repositories"
+              target="_blank"
+              class="button button--secondary"
+              data-i18n="projects.viewMore"
+            >
               Смотреть больше на GitHub
             </a>
           </div>
@@ -269,54 +329,81 @@
       </section>
 
       <!-- Contact Section -->
-      <section id="contact" class="section contact-section">
-        <div class="container">
-          <h2 class="section-title">
-            <span class="section-number">03.</span> <span data-i18n="contact.title">Связаться со мной</span>
+      <section id="contact" class="app-section contact">
+        <div class="app-container">
+          <h2 class="app-section__title">
+            <span class="app-section__number">03.</span>
+            <span data-i18n="contact.title">Связаться со мной</span>
           </h2>
-          <div class="contact-content">
-            <p class="contact-intro" data-i18n="contact.intro">
-              Я всегда открыта для обсуждения новых проектов, творческих идей 
-              или возможности стать частью интересных проектов.
+          <div class="contact__content">
+            <p class="contact__intro" data-i18n="contact.intro">
+              Я всегда открыта для обсуждения новых проектов, творческих идей или возможности стать
+              частью интересных проектов.
             </p>
-            
-            <div class="contact-methods" id="contact-methods">
-              <a href="mailto:tatykolcova1234@yandex.ru" class="contact-card">
-                <div class="contact-icon">
+
+            <div class="contact__methods" id="contact-methods">
+              <a href="mailto:tatykolcova1234@yandex.ru" class="contact__card">
+                <div class="contact__icon">
                   <svg class="icon"><use href="#email-icon"></use></svg>
                 </div>
                 <h3 data-i18n="contact.email">Email</h3>
                 <p>tatykolcova1234@yandex.ru</p>
               </a>
 
-              <a href="https://telegram.org" target="_blank" class="contact-card">
-                <div class="contact-icon">
+              <a href="https://telegram.org" target="_blank" class="contact__card">
+                <div class="contact__icon">
                   <svg class="icon"><use href="#telegram-icon"></use></svg>
                 </div>
                 <h3 data-i18n="contact.telegram">Telegram</h3>
                 <p>@tatyamusya</p>
               </a>
 
-              <a href="https://linkedin.com" target="_blank" class="contact-card">
-                <div class="contact-icon">
+              <a href="https://linkedin.com" target="_blank" class="contact__card">
+                <div class="contact__icon">
                   <svg class="icon"><use href="#linkedin-icon"></use></svg>
                 </div>
                 <h3 data-i18n="contact.linkedin">LinkedIn</h3>
                 <p>in/tany-musaeva</p>
               </a>
             </div>
-            
-            <form class="contact-form" id="contact-form">
+
+            <form class="contact__form" id="contact-form">
               <div class="form-group">
-                <input type="text" id="name" name="name" data-i18n-placeholder="contact.formName" placeholder="Ваше имя" required>
+                <input
+                  class="form-group__input"
+                  type="text"
+                  id="name"
+                  name="name"
+                  data-i18n-placeholder="contact.formName"
+                  placeholder="Ваше имя"
+                  required
+                />
               </div>
               <div class="form-group">
-                <input type="email" id="email" name="email" data-i18n-placeholder="contact.formEmail" placeholder="Ваш Email" required>
+                <input
+                  class="form-group__input"
+                  type="email"
+                  id="email"
+                  name="email"
+                  data-i18n-placeholder="contact.formEmail"
+                  placeholder="Ваш Email"
+                  required
+                />
               </div>
               <div class="form-group">
-                <textarea id="message" name="message" rows="5" data-i18n-placeholder="contact.formMessage" placeholder="Сообщение" required></textarea>
+                <textarea
+                  class="form-group__textarea"
+                  id="message"
+                  name="message"
+                  rows="5"
+                  data-i18n-placeholder="contact.formMessage"
+                  placeholder="Сообщение"
+                  required
+                ></textarea>
               </div>
-              <button type="submit" class="btn btn-primary" data-i18n="contact.formSubmit">Отправить</button>
+              <button type="submit" class="button button--primary" data-i18n="contact.formSubmit">
+                Отправить
+              </button>
             </form>
           </div>
         </div>
@@ -324,14 +411,16 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <p>&copy; <span id="current-year">2026</span> Таня Мусаева. <span data-i18n="footer.rights">Все права защищены.</span></p>
-        <p class="footer-note" data-i18n="footer.madeWith">Создано с ❤️ и Three.js</p>
+    <footer class="app-footer">
+      <div class="app-container">
+        <p>
+          &copy; <span id="current-year">2026</span> Таня Мусаева.
+          <span data-i18n="footer.rights">Все права защищены.</span>
+        </p>
+        <p class="app-footer__note" data-i18n="footer.madeWith">Создано с ❤️ и Three.js</p>
       </div>
     </footer>
 
     <script type="module" src="/src/main.ts"></script>
-    
   </body>
 </html>

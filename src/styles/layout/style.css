@@ -1,2 +1,7 @@
+@import url('app.css');
+@import url('navbar.css');
+@import url('main.css');
 @import url('section.css');
-@import url('webgl-canvas.css');
+@import url('container.css');
+@import url('canvas-bg.css');
+@import url('footer.css');

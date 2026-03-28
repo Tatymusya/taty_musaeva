@@ -30,7 +30,7 @@ class FormSubmitCheckerClass {
 
     // Если уже идёт проверка, ждём её
     if (this.status.checking) {
-      return new Promise((resolve) => {
+      return new Promise(resolve => {
         const checkInterval = setInterval(() => {
           if (this.status.checked) {
             clearInterval(checkInterval);
@@ -45,7 +45,10 @@ class FormSubmitCheckerClass {
     try {
       // Пробуем сделать тестовый запрос
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), this.CHECK_TIMEOUT);
+      const timeoutId = setTimeout(
+        () => controller.abort(),
+        this.CHECK_TIMEOUT
+      );
 
       const response = await fetch(this.TEST_URL, {
         method: 'POST',

@@ -1,0 +1,53 @@
+/* ===================================
+   Skills grid
+   =================================== */
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.875rem;
+}
+
+.skills-grid__category {
+  background: var(--bg-secondary);
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+}
+
+.skills-grid__category:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.625rem 1.875rem -0.93rem rgba(0, 0, 0, 0.5);
+}
+
+.skills-grid__title {
+  color: var(--accent);
+  font-size: 1rem;
+  margin-bottom: 0.93rem;
+  font-family: var(--font-mono);
+}
+
+.skills-grid__list {
+  list-style: none;
+}
+
+.skills-grid__list-item {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  padding: 0.31rem 0;
+  position: relative;
+  padding-left: 0.93rem;
+}
+
+.skills-grid__list-item::before {
+  content: '▹';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+@media (min-width: 768px) {
+  .skills-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

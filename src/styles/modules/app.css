@@ -1,9 +1,0 @@
-.app {
-  scroll-behavior: smooth;
-}
-
-.app_body {
-  background-color: var(--bg-primary);
-  overflow-x: hidden;
-  min-height: 100vh;
-}

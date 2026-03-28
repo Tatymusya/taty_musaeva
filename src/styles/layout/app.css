@@ -1,0 +1,14 @@
+/* ===================================
+   App
+   =================================== */
+
+.app {
+  scroll-behavior: smooth;
+}
+
+.app-body {
+  background-color: var(--bg-primary);
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100dvh;
+}

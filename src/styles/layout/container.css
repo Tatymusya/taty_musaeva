@@ -1,0 +1,11 @@
+/* ===================================
+   Container
+   =================================== */
+
+.app-container {
+  --padding-horizontal: 1.56rem;
+  width: calc(100% - (var(--padding-horizontal) * 2));
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--padding-horizontal);
+}

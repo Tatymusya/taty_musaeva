@@ -64,7 +64,10 @@ export class SceneModule extends BaseModule {
     this.setupEventListeners();
 
     this.initialized = true;
-    EventManager.emit('webgl:initialized', { renderer: this.renderer, scene: this.scene });
+    EventManager.emit('webgl:initialized', {
+      renderer: this.renderer,
+      scene: this.scene,
+    });
     this.debug('Initialized');
   }
 
@@ -104,7 +107,10 @@ export class SceneModule extends BaseModule {
       this.velocities[i3 + 2] = (Math.random() - 0.5) * 0.02;
     }
 
-    geometry.setAttribute('position', new THREE.BufferAttribute(this.positions, 3));
+    geometry.setAttribute(
+      'position',
+      new THREE.BufferAttribute(this.positions, 3)
+    );
 
     const material = new THREE.PointsMaterial({
       color: config.particleColor,
@@ -126,8 +132,14 @@ export class SceneModule extends BaseModule {
     const lineColors = new Float32Array(maxLines * 3);
 
     this.linesGeometry = new THREE.BufferGeometry();
-    this.linesGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
-    this.linesGeometry.setAttribute('color', new THREE.BufferAttribute(lineColors, 3));
+    this.linesGeometry.setAttribute(
+      'position',
+      new THREE.BufferAttribute(linePositions, 3)
+    );
+    this.linesGeometry.setAttribute(
+      'color',
+      new THREE.BufferAttribute(lineColors, 3)
+    );
 
     const material = new THREE.LineBasicMaterial({
       vertexColors: true,
@@ -183,7 +195,13 @@ export class SceneModule extends BaseModule {
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    this.postProcessor = new PostProcessor(this.renderer, this.scene, this.camera, width, height);
+    this.postProcessor = new PostProcessor(
+      this.renderer,
+      this.scene,
+      this.camera,
+      width,
+      height
+    );
   }
 
   private setupEventListeners(): void {
@@ -207,8 +225,10 @@ export class SceneModule extends BaseModule {
    */
   private updateLines(): void {
     const config = getConfig('three');
-    const linePositions = this.linesGeometry.attributes.position.array as Float32Array;
-    const lineColors = this.linesGeometry.attributes.color.array as Float32Array;
+    const linePositions = this.linesGeometry.attributes.position
+      .array as Float32Array;
+    const lineColors = this.linesGeometry.attributes.color
+      .array as Float32Array;
 
     let lineIndex = 0;
     const color = new THREE.Color(config.particleColor);
@@ -270,15 +290,20 @@ export class SceneModule extends BaseModule {
 
       // Отталкивание от мыши
       if (distance < config.mouseInteractionRadius) {
-        const force = (config.mouseInteractionRadius - distance) / config.mouseInteractionRadius;
+        const force =
+          (config.mouseInteractionRadius - distance) /
+          config.mouseInteractionRadius;
         this.positions[i3] += (dx / distance) * force * 2;
         this.positions[i3 + 1] += (dy / distance) * force * 2;
       }
 
       // Возврат к оригинальной позиции
-      this.positions[i3] += (this.originalPositions[i3] - this.positions[i3]) * 0.02;
-      this.positions[i3 + 1] += (this.originalPositions[i3 + 1] - this.positions[i3 + 1]) * 0.02;
-      this.positions[i3 + 2] += (this.originalPositions[i3 + 2] - this.positions[i3 + 2]) * 0.02;
+      this.positions[i3] +=
+        (this.originalPositions[i3] - this.positions[i3]) * 0.02;
+      this.positions[i3 + 1] +=
+        (this.originalPositions[i3 + 1] - this.positions[i3 + 1]) * 0.02;
+      this.positions[i3 + 2] +=
+        (this.originalPositions[i3 + 2] - this.positions[i3 + 2]) * 0.02;
 
       // Небольшое случайное движение
       const time = Date.now() * 0.001;
@@ -306,8 +331,10 @@ export class SceneModule extends BaseModule {
     const time = Date.now() * 0.001;
 
     // Плавное вращение
-    this.currentRotation.x += (this.targetRotation.x - this.currentRotation.x) * 0.05;
-    this.currentRotation.y += (this.targetRotation.y - this.currentRotation.y) * 0.05;
+    this.currentRotation.x +=
+      (this.targetRotation.x - this.currentRotation.x) * 0.05;
+    this.currentRotation.y +=
+      (this.targetRotation.y - this.currentRotation.y) * 0.05;
 
     // Вращение системы частиц
     this.particleSystem.rotation.x += config.rotationSpeed;
@@ -358,10 +385,16 @@ export class SceneModule extends BaseModule {
   destroy(): void {
     // Отписка от событий
     if (this._onMouseMove) {
-      EventManager.off('mouse:move', this._onMouseMove as (...args: unknown[]) => void);
+      EventManager.off(
+        'mouse:move',
+        this._onMouseMove as (...args: unknown[]) => void
+      );
     }
     if (this._onScroll) {
-      EventManager.off('scroll', this._onScroll as (...args: unknown[]) => void);
+      EventManager.off(
+        'scroll',
+        this._onScroll as (...args: unknown[]) => void
+      );
     }
 
     this.postProcessor.dispose(); // ✅ Очистка composer

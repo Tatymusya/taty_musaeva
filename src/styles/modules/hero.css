@@ -1,171 +1,54 @@
 /* ===================================
    Hero Section
    =================================== */
-.hero-section .container {
+
+.hero .app-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 50px;
+  gap: 3.125rem;
   align-items: center;
 }
 
-.hero-greeting {
+.hero__greeting {
   color: var(--accent);
   font-family: var(--font-mono);
   font-size: 1rem;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
-.hero-title {
-  font-size: clamp(40px, 8vw, 80px);
+.hero__title {
+  font-size: clamp(2.5rem, 8vw, 5rem);
   font-weight: 900;
   line-height: 1.1;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
-.gradient-text {
-  background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2), var(--gradient-3));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero-subtitle {
-  font-size: clamp(30px, 5vw, 60px);
+.hero__subtitle {
+  font-size: clamp(1.875rem, 5vw, 3.75rem);
   font-weight: 700;
   color: var(--text-secondary);
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
-.hero-description {
+.hero__description {
   font-size: 1.1rem;
   color: var(--text-secondary);
-  max-width: 500px;
-  margin-bottom: 30px;
+  max-width: 31.25rem;
+  margin-bottom: 1.875rem;
 }
 
-.hero-buttons {
+.hero__buttons {
   display: flex;
-  gap: 20px;
-  margin-bottom: 30px;
+  gap: 1.25rem;
+  margin-bottom: 1.875rem;
 }
 
-/* Code Block */
-.hero-visual {
+.hero__visual {
   display: flex;
   justify-content: center;
 }
 
-.code-block {
-  background: var(--bg-secondary);
-  border-radius: var(--radius-lg);
-  padding: 20px;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.5);
-  max-width: 450px;
-  width: 100%;
-}
-
-.code-header {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 15px;
-}
-
-.code-header .dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.dot.red {
-  background: #ff5f56;
-}
-.dot.yellow {
-  background: #ffbd2e;
-}
-.dot.green {
-  background: #27ca40;
-}
-
-.code-block pre {
-  overflow-x: auto;
-}
-
-.code-block code {
-  display: block;
-  line-height: 1.8;
-}
-
-.keyword {
-  color: #ff79c6;
-}
-.variable {
-  color: #8be9fd;
-}
-.property {
-  color: #50fa7b;
-}
-.string {
-  color: #f1fa8c;
-}
-.boolean {
-  color: #bd93f9;
-}
-
-.btn {
-  padding: 15px 30px;
-  border-radius: var(--radius-md);
-  font-size: 1rem;
-  font-family: var(--font-mono);
-  text-decoration: none;
-  cursor: pointer;
-  transition: var(--transition-fast);
-  border: 1px solid var(--accent);
-  background: transparent;
-  color: var(--accent);
-}
-
-.btn-primary {
-  background: var(--accent);
-  color: var(--bg-primary);
-}
-
-.btn-primary:hover {
-  background: var(--accent-hover);
-  border-color: var(--accent-hover);
-  transform: translateY(-3px);
-}
-
-.btn-secondary:hover {
-  background: rgba(100, 255, 218, 0.1);
-  transform: translateY(-3px);
-}
-
-/* Scroll Indicator */
-.scroll-indicator {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  color: var(--text-muted);
-  font-size: 0.8rem;
-  animation: bounce 2s infinite;
-}
-
-.scroll-arrow {
-  width: 20px;
-  height: 20px;
-  border-right: 2px solid var(--text-muted);
-  border-bottom: 2px solid var(--text-muted);
-  transform: rotate(45deg);
-}
-
-.hero-visual .code-block {
+.hero__visual .code-block {
   transform-origin: center;
   will-change: transform;
 }
@@ -187,30 +70,22 @@
 }
 
 @media (max-width: 1024px) {
-  .hero-section .container {
+  .hero .app-container {
     grid-template-columns: 1fr;
     text-align: center;
   }
 
-  .hero-visual {
-    order: -1;
-  }
-
-  .hero-buttons {
+  .hero__buttons {
     justify-content: center;
   }
 
-  .hero-social {
+  .hero__social {
     justify-content: center;
   }
 }
 
 @media (max-width: 768px) {
-  .hero-buttons {
+  .hero__buttons {
     flex-direction: column;
-  }
-
-  .code-block {
-    font-size: 0.8rem;
   }
 }

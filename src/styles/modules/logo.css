@@ -1,0 +1,14 @@
+/* ===================================
+   Logo
+   =================================== */
+
+.app-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  will-change: transform, opacity;
+}
+
+.app-logo__text {
+  color: var(--accent);
+  font-family: var(--font-mono);
+}

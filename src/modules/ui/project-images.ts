@@ -13,8 +13,10 @@ import heroPng from '@core/assets/images/hero.png?w=600&format=webp';
 export function initProjectImages(): void {
   const containers = document.querySelectorAll('[data-project-image]');
 
-  containers.forEach((container) => {
-    const placeholder = container.querySelector('.project-image-placeholder');
+  containers.forEach(container => {
+    const placeholder = container.querySelector(
+      '.projects-grid__image-placeholder'
+    );
     if (placeholder) {
       const img = document.createElement('img');
       img.src = viteSvg;

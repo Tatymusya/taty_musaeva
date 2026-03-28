@@ -1,8 +1,12 @@
-#webgl-canvas {
+/* ===================================
+   Canvas + Fallback image
+   =================================== */
+
+.app-canvas-bg {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100dvw;
   height: 100%;
   z-index: -1;
   pointer-events: none;
@@ -21,7 +25,7 @@
 }
 
 /* Контейнер для fallback (если нужно переопределить стили родителя canvas) */
-body.fallback-mode #webgl-canvas {
+body.fallback-mode .app-canvas-bg {
   display: none;
 }
 

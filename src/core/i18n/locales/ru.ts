@@ -64,11 +64,13 @@ export const ru: ITranslation = {
     serviceUnavailable: 'Сервис недоступен',
     unavailableTitle: 'Сервис отправки писем временно недоступен.',
     unavailableText: 'Вы можете написать мне напрямую:',
-    unavailableReason: 'Возможно, сервис заблокирован в вашем регионе или требуется VPN.',
+    unavailableReason:
+      'Возможно, сервис заблокирован в вашем регионе или требуется VPN.',
     fieldRequired: 'Это поле обязательно для заполнения',
     fieldEmailInvalid: 'Введите корректный email',
     fieldMinLength: 'Минимальная длина: {min} символов',
-    submitUnavailable: 'Сервис отправки временно недоступен. Напишите мне напрямую на почту.',
+    submitUnavailable:
+      'Сервис отправки временно недоступен. Напишите мне напрямую на почту.',
   },
   footer: {
     rights: 'Все права защищены.',

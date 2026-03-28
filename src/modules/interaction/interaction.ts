@@ -78,7 +78,8 @@ export class InteractionModule extends BaseModule {
 
   private updateScrollState(): void {
     const scrollY = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const docHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
     const progress = docHeight > 0 ? scrollY / docHeight : 0;
     const direction = scrollY > this.lastScrollY ? 'down' : 'up';
 

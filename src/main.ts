@@ -11,12 +11,14 @@ import developerSvg from '@/assets/images/developer.svg';
 const img = document.createElement('img');
 img.src = developerSvg;
 img.alt = 'Full-Stack Разработчик';
-img.className = 'profile-image';
+img.className = 'about__profile-image';
 img.style.width = '100%';
 img.style.height = '100%';
 img.style.objectFit = 'contain';
 
-document.querySelector('.about-image .profile-image-placeholder')?.replaceWith(img);
+document
+  .querySelector('.about__image .about__image-placeholder')
+  ?.replaceWith(img);
 
 // Импорт модулей через алиасы
 import { RendererModule } from '@modules/renderer/renderer';
@@ -59,16 +61,22 @@ class Application {
     console.log(`🔧 Debug mode: ${getConfig('app.debug') ? 'ON' : 'OFF'}`);
 
     // Подписка на события загрузки модулей для обновления preloader
-    ModuleLoader.on('progress', ({ percent, currentModule, completedModules }) => {
-      const moduleName = currentModule || completedModules[completedModules.length - 1];
-      if (moduleName) {
-        this.updatePreloaderText(moduleName);
+    ModuleLoader.on(
+      'progress',
+      ({ percent, currentModule, completedModules }) => {
+        const moduleName =
+          currentModule || completedModules[completedModules.length - 1];
+        if (moduleName) {
+          this.updatePreloaderText(moduleName);
+        }
+        console.log(
+          `📊 Прогресс: ${percent}% - ${currentModule || 'завершено'}`
+        );
       }
-      console.log(`📊 Прогресс: ${percent}% - ${currentModule || 'завершено'}`);
-    });
+    );
 
     // Подписка на событие WebGL не поддерживается
-    EventManager.on('webgl:not-supported', (data) => {
+    EventManager.on('webgl:not-supported', data => {
       this.isFallbackMode = true;
       console.warn('⚠️ WebGL not supported, running in fallback mode:', data);
     });
@@ -117,9 +125,14 @@ class Application {
               {
                 name: 'Scene',
                 init: () => {
-                  const renderer = this.modules.get('renderer') as IRendererModule | undefined;
+                  const renderer = this.modules.get('renderer') as
+                    | IRendererModule
+                    | undefined;
                   if (!renderer) throw new Error('Renderer not initialized');
-                  const scene = new SceneModule(renderer.getCamera(), renderer.getRenderer());
+                  const scene = new SceneModule(
+                    renderer.getCamera(),
+                    renderer.getRenderer()
+                  );
                   scene.init();
                   this.modules.set('scene', scene);
                 },
@@ -173,7 +186,9 @@ class Application {
 
       // 5. Запуск анимационного цикла (только если не fallback)
       if (!this.isFallbackMode) {
-        const renderer = this.modules.get('renderer') as IRendererModule | undefined;
+        const renderer = this.modules.get('renderer') as
+          | IRendererModule
+          | undefined;
         if (renderer) {
           renderer.addRenderCallback(() => {
             const scene = this.modules.get('scene') as ISceneModule | undefined;
@@ -185,7 +200,9 @@ class Application {
 
       this.isRunning = true;
       console.log(
-        this.isFallbackMode ? '⚠️ Running in fallback mode' : '✅ Все модули инициализированы'
+        this.isFallbackMode
+          ? '⚠️ Running in fallback mode'
+          : '✅ Все модули инициализированы'
       );
       this.logModuleStats();
 
@@ -234,7 +251,7 @@ class Application {
     // Останавливаем модули в обратном порядке
     const moduleNames = Array.from(this.modules.keys()).reverse();
 
-    moduleNames.forEach((name) => {
+    moduleNames.forEach(name => {
       const module = this.modules.get(name);
       if (module?.destroy) {
         try {
@@ -279,7 +296,7 @@ class Application {
   private logModuleStats(): void {
     console.log('\n📊 Статистика модулей:');
     console.table(
-      Array.from(this.modules.keys()).map((name) => ({
+      Array.from(this.modules.keys()).map(name => ({
         Модуль: name,
         Статус: '✓ Активен',
       }))
@@ -295,8 +312,8 @@ const app = new Application();
 async function loadFonts(): Promise<void> {
   if ('fonts' in document) {
     try {
-      await (document as any).fonts.load('1em Inter');
-      await (document as any).fonts.ready;
+      await document.fonts.load('1em Inter');
+      await document.fonts.ready;
     } catch (e) {
       console.warn('Font loading failed, continuing anyway', e);
     }
