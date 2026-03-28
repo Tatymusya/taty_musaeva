@@ -32,10 +32,10 @@
   </g>
   
   <!-- Center text -->
-  <text x="50%" y="50%" text-anchor="middle" fill="#64ffda" font-family="Arial, sans-serif" font-size="48" font-weight="300" letter-spacing="4">
+  <text x="50%" y="50%" text-anchor="middle" fill="#64ffda" font-family="Arial, sans-serif" font-size="48" font-weight="300" letter-spacing="4" opacity="0.4">
     Portfolio
   </text>
-  <text x="50%" y="58%" text-anchor="middle" fill="#9d4edd" font-family="Arial, sans-serif" font-size="24" letter-spacing="2">
+  <text x="50%" y="58%" text-anchor="middle" fill="#9d4edd" font-family="Arial, sans-serif" font-size="24" letter-spacing="2" opacity="0.4">
     Full-Stack Developer
   </text>
 </svg>
