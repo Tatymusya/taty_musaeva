@@ -1,7 +1,7 @@
 /**
  * UI Module Exports
  */
-export { NavigationModule } from './navigation';
-export { FormModule } from './forms';
-export { AnimationModule } from './animations';
-export { LocaleModule } from './locale';
+export { NavigationModule } from '@modules/ui/navigation';
+export { FormModule } from '@modules/ui/forms';
+export { AnimationModule } from '@modules/ui/animations';
+export { LocaleModule } from '@modules/ui/locale';

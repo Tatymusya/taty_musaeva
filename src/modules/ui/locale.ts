@@ -1,4 +1,4 @@
-import { BaseModule } from '../base-module';
+import { BaseModule } from '@modules/base-module';
 import { I18n } from '@core/i18n';
 import type { Locale } from '@core/i18n';
 

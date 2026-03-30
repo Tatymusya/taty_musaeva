@@ -1,4 +1,4 @@
-import { BaseModule } from '../base-module';
+import { BaseModule } from '@modules/base-module';
 
 /**
  * Модуль навигации

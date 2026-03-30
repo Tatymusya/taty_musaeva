@@ -20,6 +20,7 @@ export interface ThreeConfig {
   particleCount: number;
   particleSize: number;
   particleColor: number;
+  centralObjectColor: number;
   connectionDistance: number;
   mouseInteractionRadius: number;
   rotationSpeed: number;

@@ -1,4 +1,4 @@
-import type { AppConfig } from './types';
+import type { AppConfig } from '@core/types';
 
 /**
  * Конфигурация приложения
@@ -14,6 +14,7 @@ export const config: AppConfig = {
     particleCount: 150,
     particleSize: 2,
     particleColor: 0x64ffda,
+    centralObjectColor: 0x9d4edd,
     connectionDistance: 15,
     mouseInteractionRadius: 20,
     rotationSpeed: 0.001,

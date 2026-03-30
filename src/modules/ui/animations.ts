@@ -1,5 +1,5 @@
-import { BaseModule } from '../base-module';
-import { easing } from '../../core/utils';
+import { BaseModule } from '@modules/base-module';
+import { easing } from '@core/utils';
 
 /**
  * Модуль анимаций

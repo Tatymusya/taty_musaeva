@@ -1,4 +1,3 @@
-// src/modules/postprocessing/post-processor.ts
 import * as THREE from 'three';
 import {
   EffectComposer,

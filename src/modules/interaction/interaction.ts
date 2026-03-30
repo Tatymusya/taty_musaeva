@@ -1,6 +1,6 @@
-import { BaseModule } from '../base-module';
-import { EventManager } from '../../core/events';
-import type { MousePosition, ScrollState } from '../../core/types';
+import { BaseModule } from '@modules/base-module';
+import { EventManager } from '@core/events';
+import type { MousePosition, ScrollState } from '@core/types';
 
 /**
  * Модуль взаимодействия

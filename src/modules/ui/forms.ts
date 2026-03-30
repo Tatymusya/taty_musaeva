@@ -1,4 +1,4 @@
-import { BaseModule } from '../base-module';
+import { BaseModule } from '@modules/base-module';
 import { FormSubmitChecker } from '@core/utils/formsubmit-checker';
 import { I18n } from '@core/i18n';
 

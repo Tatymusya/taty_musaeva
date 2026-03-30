@@ -60,7 +60,7 @@ export class SceneModule extends BaseModule {
     this.setupLines();
     this.setupCentralObject();
     this.setupLights();
-    this.setupPostProcessing(); // ← Новый шаг
+    this.setupPostProcessing();
     this.setupEventListeners();
 
     this.initialized = true;
@@ -114,7 +114,6 @@ export class SceneModule extends BaseModule {
 
     const material = new THREE.PointsMaterial({
       color: config.particleColor,
-      //color: 0xffffff,
       size: config.particleSize,
       transparent: true,
       opacity: 0.8,
@@ -145,7 +144,6 @@ export class SceneModule extends BaseModule {
       vertexColors: true,
       transparent: true,
       opacity: 0.15,
-      //opacity: 0.85,
       blending: THREE.AdditiveBlending,
     });
 
@@ -154,18 +152,15 @@ export class SceneModule extends BaseModule {
   }
 
   private setupCentralObject(): void {
-    //const config = getConfig('three');
+    const config = getConfig('three');
 
     const geometry = new THREE.IcosahedronGeometry(8, 1);
     const material = new THREE.MeshPhongMaterial({
-      //color: config.particleColor,
-      color: 0x9d4edd,
+      color: config.centralObjectColor,
       wireframe: true,
       transparent: true,
       opacity: 0.8,
-      //emissive: config.particleColor,
-      emissive: 0x9d4edd,
-      //emissiveIntensity: 0.5,
+      emissive: config.centralObjectColor,
       emissiveIntensity: 0.6,
     });
 
@@ -360,8 +355,7 @@ export class SceneModule extends BaseModule {
    */
   render(): void {
     this.update();
-    //this.renderer.render(this.scene, this.camera);
-    this.postProcessor.render(); // ✅ Рендер через composer
+    this.postProcessor.render();
   }
 
   /**
@@ -371,7 +365,7 @@ export class SceneModule extends BaseModule {
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
 
-    this.postProcessor.setSize(width, height); // ✅ Передаём в post-processor
+    this.postProcessor.setSize(width, height);
   }
 
   getScene(): THREE.Scene {
@@ -397,7 +391,7 @@ export class SceneModule extends BaseModule {
       );
     }
 
-    this.postProcessor.dispose(); // ✅ Очистка composer
+    this.postProcessor.dispose();
 
     // Очистка сцены
     this.scene.clear();

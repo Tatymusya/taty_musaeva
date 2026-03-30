@@ -19,7 +19,7 @@ export class RendererModule extends BaseModule {
   private _onResize: (() => void) | null = null;
   // добавлены
   private lastTime = 0;
-  private readonly targetFps = 30; // Можно вынести в config
+  private readonly targetFps = 30;
   private readonly frameTime = 1000 / this.targetFps;
   private ticking = false;
 
@@ -40,7 +40,6 @@ export class RendererModule extends BaseModule {
     if (this.initialized) return;
 
     const capabilities = await DeviceCheck.getCapabilities();
-    console.log('Device capabilities:', capabilities);
 
     // Публикуем событие с возможностями устройства
     EventManager.emit('device:capabilities', capabilities);
@@ -88,13 +87,12 @@ export class RendererModule extends BaseModule {
    * Установка размеров
    */
   private updateSize(): void {
-    const canvas = this.renderer.domElement;
-    const pixelRatio = window.devicePixelRatio;
-    this.width = Math.floor(canvas.clientWidth * pixelRatio);
-    this.height = Math.floor(canvas.clientHeight * pixelRatio);
-    const needResize =
-      canvas.width !== this.width || canvas.height !== this.height;
-    if (needResize) {
+    this.width = this.canvas.clientWidth;
+    this.height = this.canvas.clientHeight;
+    if (
+      this.canvas.width !== this.width ||
+      this.canvas.height !== this.height
+    ) {
       this.renderer.setSize(this.width, this.height, false);
     }
   }
@@ -111,8 +109,9 @@ export class RendererModule extends BaseModule {
 
       EventManager.emit('resize', { width: this.width, height: this.height });
     };
-
-    window.addEventListener('resize', onResize);
+    const resizeObserver = new ResizeObserver(onResize);
+    resizeObserver.observe(this.renderer.domElement);
+    screen.orientation.addEventListener('change', onResize);
     this._onResize = onResize;
   }
 

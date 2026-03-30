@@ -2,7 +2,7 @@
  * Portfolio Application
  * Модульная архитектура с разделением ответственности
  */
-import './styles.css';
+import '@/styles.css';
 
 // SVG изображение разработчика вместо фото
 import developerSvg from '@/assets/images/developer.svg';
@@ -22,7 +22,7 @@ document
 
 // Импорт модулей через алиасы
 import { RendererModule } from '@modules/renderer/renderer';
-import { SceneModule } from '@modules/scene/scene'; // работающий код
+import { SceneModule } from '@modules/scene/scene';
 import { InteractionModule } from '@modules/interaction/interaction';
 import { NavigationModule } from '@modules/ui/navigation';
 import { FormModule } from '@modules/ui/forms';
