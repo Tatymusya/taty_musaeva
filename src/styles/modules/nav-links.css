@@ -60,6 +60,19 @@
     display: none;
   }
 
+  .app-nav-links--active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    top: 4.25rem;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 2rem;
+    background: rgba(10, 25, 47, 0.95);
+  }
+
   .app-nav-toggle {
     display: flex;
   }

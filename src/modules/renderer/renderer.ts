@@ -17,7 +17,6 @@ export class RendererModule extends BaseModule {
   private animationFrameId: number | null = null;
   private callbacks: Set<() => void> = new Set();
   private _onResize: (() => void) | null = null;
-  // добавлены
   private lastTime = 0;
   private readonly targetFps = 30;
   private readonly frameTime = 1000 / this.targetFps;

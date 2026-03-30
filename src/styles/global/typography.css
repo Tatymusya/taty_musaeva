@@ -12,3 +12,7 @@
   color: var(--text-primary);
   line-height: var(--base-line-height);
 }
+
+.app-link {
+  color: var(--gradient-2);
+}
