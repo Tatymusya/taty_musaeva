@@ -2,6 +2,10 @@
    Hero Section
    =================================== */
 
+.hero {
+  padding-top: 7.125rem;
+}
+
 .hero .app-container {
   display: grid;
   grid-template-columns: 1fr 1fr;

@@ -107,14 +107,14 @@ export class NavigationModule extends BaseModule {
 
     this.navToggle.addEventListener('click', () => {
       this.navLinksContainer?.classList.toggle('app-nav-links--active');
-      this.navToggle?.classList.toggle('active');
+      this.navToggle?.classList.toggle('app-nav-toggle--active');
     });
 
     // Закрытие по Escape
     this._onEscape = (event: KeyboardEvent): void => {
       if (event.key === 'Escape') {
         this.navLinksContainer?.classList.remove('app-nav-links--active');
-        this.navToggle?.classList.remove('active');
+        this.navToggle?.classList.remove('app-nav-toggle--active');
       }
     };
 
@@ -136,7 +136,7 @@ export class NavigationModule extends BaseModule {
 
             // Закрываем мобильное меню
             this.navLinksContainer?.classList.remove('app-nav-links--active');
-            this.navToggle?.classList.remove('active');
+            this.navToggle?.classList.remove('app-nav-toggle--active');
           }
         }
       });
@@ -148,7 +148,7 @@ export class NavigationModule extends BaseModule {
    */
   closeMobileMenu(): void {
     this.navLinksContainer?.classList.remove('app-nav-links--active');
-    this.navToggle?.classList.remove('active');
+    this.navToggle?.classList.remove('app-nav-toggle--active');
   }
 
   destroy(): void {
