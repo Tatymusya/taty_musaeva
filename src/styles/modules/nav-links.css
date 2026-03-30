@@ -6,6 +6,7 @@
   display: flex;
   list-style: none;
   gap: 1.875rem;
+  transition: var(--transition-fast);
   will-change: transform, opacity;
 }
 
@@ -58,10 +59,12 @@
 @media (max-width: 768px) {
   .app-nav-links {
     display: none;
+    opacity: 0;
   }
 
   .app-nav-links--active {
     display: flex;
+    opacity: 1;
     flex-direction: column;
     align-items: center;
     position: fixed;
