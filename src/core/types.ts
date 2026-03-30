@@ -26,6 +26,8 @@ export interface ThreeConfig {
   rotationSpeed: number;
   bgColor: number;
   fogDensity: number;
+  pulseSpeed: number;
+  pulseAmplitude: number;
 }
 
 export interface UIConfig {

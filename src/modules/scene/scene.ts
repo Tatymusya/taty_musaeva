@@ -22,6 +22,7 @@ export class SceneModule extends BaseModule {
   private linesGeometry!: THREE.BufferGeometry;
   private linesMesh!: THREE.LineSegments;
   private centralObject!: THREE.Mesh;
+  private baseScale: number = 1;
 
   // Данные частиц
   private positions!: Float32Array;
@@ -37,6 +38,9 @@ export class SceneModule extends BaseModule {
   // Обработчики событий
   private _onMouseMove: ((data: MousePosition) => void) | null = null;
   private _onScroll: ((data: { progress: number }) => void) | null = null;
+  private _onResize:
+    | ((data: { width: number; height: number }) => void)
+    | null = null;
 
   constructor(camera: THREE.PerspectiveCamera, renderer: THREE.WebGLRenderer) {
     super('Scene');
@@ -112,13 +116,62 @@ export class SceneModule extends BaseModule {
       new THREE.BufferAttribute(this.positions, 3)
     );
 
-    const material = new THREE.PointsMaterial({
-      color: config.particleColor,
-      size: config.particleSize,
+    const material = new THREE.ShaderMaterial({
+      uniforms: {
+        color: { value: new THREE.Color(config.particleColor) },
+        baseSize: { value: config.particleSize },
+        pixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
+      },
+      vertexShader: `
+        uniform float baseSize;
+        uniform float pixelRatio;
+
+        varying float vDistance;
+        varying float vAlpha;
+
+        void main() {
+          vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+          gl_Position = projectionMatrix * mvPosition;
+
+          // Расстояние от камеры до частицы
+          vDistance = -mvPosition.z;
+
+          // Размер частицы с учётом перспективы
+          // Чем дальше частица, тем она меньше
+          gl_PointSize = baseSize * pixelRatio * (300.0 / vDistance);
+
+          // Плавное затухание прозрачности вдали
+          vAlpha = 0.4 * (1.0 - smoothstep(50.0, 100.0, vDistance));
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 color;
+
+        varying float vDistance;
+        varying float vAlpha;
+
+        void main() {
+          // Преобразуем координаты точки в круг
+          // gl_PointCoord варьируется от 0.0 до 1.0
+          vec2 coord = gl_PointCoord - vec2(0.5);
+          float distanceToCenter = length(coord);
+
+          // Отбрасываем пиксели за пределами круга
+          if (distanceToCenter > 0.5) {
+            discard;
+          }
+
+          // Мягкие края частицы (градиент прозрачности)
+          float edgeSoftness = 0.1;
+          float alpha = vAlpha * (1.0 - smoothstep(0.5 - edgeSoftness, 0.5, distanceToCenter));
+
+          gl_FragColor = vec4(color, alpha);
+        }
+      `,
       transparent: true,
-      opacity: 0.8,
-      sizeAttenuation: true,
       blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      depthTest: true,
     });
 
     this.particleSystem = new THREE.Points(geometry, material);
@@ -211,8 +264,13 @@ export class SceneModule extends BaseModule {
       this.updateCameraOnScroll(data.progress);
     };
 
+    this._onResize = (data: { width: number; height: number }) => {
+      this.onResize(data.width, data.height);
+    };
+
     EventManager.on('mouse:move', this._onMouseMove);
     EventManager.on('scroll', this._onScroll);
+    EventManager.on('resize', this._onResize);
   }
 
   /**
@@ -342,7 +400,8 @@ export class SceneModule extends BaseModule {
     this.centralObject.rotation.y += 0.005;
 
     // Пульсация центрального объекта
-    const scale = 1 + Math.sin(time * 2) * 0.1;
+    const pulse = Math.sin(time * config.pulseSpeed) * config.pulseAmplitude;
+    const scale = this.baseScale * (1 + pulse);
     this.centralObject.scale.set(scale, scale, scale);
 
     // Обновление частиц и линий
@@ -365,7 +424,16 @@ export class SceneModule extends BaseModule {
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
 
+    const aspectRatio = width / height;
+    if (aspectRatio > 2) {
+      this.baseScale = 1 + (aspectRatio - 2) * 0.1;
+    }
+
     this.postProcessor.setSize(width, height);
+
+    // ← Обновить pixelRatio в шейдере при ресайзе
+    const material = this.particleSystem.material as THREE.ShaderMaterial;
+    material.uniforms.pixelRatio.value = Math.min(window.devicePixelRatio, 2);
   }
 
   getScene(): THREE.Scene {
@@ -388,6 +456,12 @@ export class SceneModule extends BaseModule {
       EventManager.off(
         'scroll',
         this._onScroll as (...args: unknown[]) => void
+      );
+    }
+    if (this._onResize) {
+      EventManager.off(
+        'resize',
+        this._onResize as (...args: unknown[]) => void
       );
     }
 

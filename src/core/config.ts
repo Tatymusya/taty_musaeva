@@ -12,14 +12,16 @@ export const config: AppConfig = {
   },
   three: {
     particleCount: 150,
-    particleSize: 2,
-    particleColor: 0x64ffda,
+    particleSize: 1,
+    particleColor: 0x3b9e87,
     centralObjectColor: 0x9d4edd,
     connectionDistance: 15,
     mouseInteractionRadius: 20,
     rotationSpeed: 0.001,
     bgColor: 0x0a192f,
     fogDensity: 0.03,
+    pulseSpeed: 2, // скорость пульсации (rad/sec)
+    pulseAmplitude: 0.1, // амплитуда пульсации (10%)
   },
   ui: {
     scrollSensitivity: 1,
