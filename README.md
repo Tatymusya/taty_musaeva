@@ -158,3 +158,35 @@ npm run format        # Форматирование
 ## 📝 Лицензия
 
 © 2026 Таня Мусаева. Все права защищены.
+
+---
+
+## 👤 Автор
+
+**Татьяна Мусаева**
+
+[![GitHub](https://img.shields.io/badge/GitHub-Tatymusya-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Tatymusya)
+[![Telegram](https://img.shields.io/badge/Telegram-@tatyamusya-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/tatyamusya)
+
+---
+
+## 🤝 Вклад
+
+Pull Request приветствуются! Для серьёзных изменений сначала откройте Issue.
+
+---
+
+## 📬 Контакты
+
+- **Email:** tatykolcova1234@yandex.ru
+- **Telegram:** [@tatyamusya](https://t.me/tatyamusya)
+
+---
+
+<div align="center">
+
+**Made with ❤️ by Tatymusya**
+
+[⬆ Вернуться к началу](#-pixi-app)
+
+</div>
